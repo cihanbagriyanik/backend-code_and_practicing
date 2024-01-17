@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/cihanbagriyanik/DokumenteSSD/Web Development/Clarusway/RepoSitories/2-Backend/backend-code_and_practicing/code/sql/test.sqlite3" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2350"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,5:mainAlbum"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Album" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="57"/><column index="2" value="300"/><column index="3" value="52"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="session3.sql">-- -- -- -- SQL-3  -- -- -- -- 
+
+-- -- -- -- GROUP BY -- -- -- -- 
+
+-- * GROUP BY -- İşlemleri gruplayarak yap.
+
+-- SELECT COUNT(CustomerID), Country FROM Customer GROUP BY Country;
+/*
+SELECT art.Name, COUNT(alb.Title)
+FROM Album AS alb
+INNER JOIN Artist AS art ON art.ArtistId = alb.ArtistId
+GROUP BY art.Name
+*/
+-- SELECT BillingCountry, COUNT(InvoiceId) AS faturaSayisi FROM Invoice GROUP BY BillingCountry;  -- Hangi ülkeye kaç adet fatura kesildi.
+-- SELECT BillingCountry, COUNT(InvoiceId) AS faturaSayisi, SUM(Total) AS toplam FROM Invoice GROUP BY BillingCountry; -- Ülkeye göre toplam adet/tutarları ver.
+-- SELECT BillingCountry, MIN(Total) AS minimum, MAX(Total) AS maximum FROM Invoice GROUP BY BillingCountry;  -- Ülkeye göre min/max fatura tutarı.
+/*
+SELECT BillingCountry, 
+	COUNT(InvoiceId) AS faturaSayisi, 
+	SUM(Total) AS toplam, 
+	MIN(Total) AS minimum, 
+	MAX(Total) AS maximum,
+	ROUND(AVG(Total), 2) AS ortalama
+FROM Invoice
+GROUP BY BillingCountry;
+*/
+
+
+-- -- -- -- INSERT &amp; UPDATE &amp; DELETE  -- -- -- --
+/*
+-- * INSERT -- Yeni Kayıt Ekle
+INSERT INTO Artist (ArtistId, Name)
+VALUES (276, 'Qadir Adamson');
+*/
+/*
+-- * INSERT -- Çok Kayıt Ekle
+INSERT INTO
+	Artist (ArtistId, Name)
+VALUES
+	(277, 'Qadir1 Adamson'),
+	(278, 'Qadir2 Adamson'),
+	(279, 'Qadir3 Adamson');
+*/
+/*
+-- * UPDATE -- Güncelleme
+UPDATE Artist
+SET
+	Name = 'Qadir5 Adamson',
+	ArtistId = 280
+WHERE ArtistId = 279;
+*/
+/*
+-- * DELETE -- Silme
+-- DELETE FROM Artist WHERE ArtistId = 280;
+-- DELETE FROM Artist WHERE Name LIKE '%Qadir%';
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
