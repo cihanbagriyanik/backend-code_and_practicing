@@ -1,5 +1,5 @@
-ihracat.myDateTime = function () {
-  return Date();
-};
+// ihracat.myDateTime = function () {
+//   return Date();
+// };
 
-// var dt = require("./myfirstmodule");
+// // var dt = require("./myfirstmodule");
