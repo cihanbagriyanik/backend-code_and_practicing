@@ -1,0 +1,4 @@
+SELECT * FROM customer 
+WHERE country= 'USA' 
+ORDER BY customerID DESC 
+LIMIT 10 OFFSET 5
