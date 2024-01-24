@@ -1,7 +1,7 @@
 "use strict";
 /* ---------------------------------------------
 
-    OOP - Object Oriented  Programs
+    OOP - Object Oriented Programs
 
 ----------------------------------------------- */
 
