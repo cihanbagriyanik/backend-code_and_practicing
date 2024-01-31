@@ -14,7 +14,20 @@ const PORT = process.env.PORT || 8000;
 
 // app.get('/', (req, res) => { res.send({ message: 'Home Page' }) })
 // app.get('/about', (req, res) => { res.send({ message: 'About Page' }) })
-// app.get('/user/:userId', (req, res) => { res.send({ message: 'User Page' })
+// app.get('/user/:userId', (req, res) => { res.send({ message: 'User Page' }) })
+
+// // Send routings to Router
+// const router = express.Router()
+// router.get('/', (req, res) => { res.send({ message: 'Home Page' }) })
+// router.get('/about', (req, res) => { res.send({ message: 'About Page' }) })
+// router.get('/user/:userId', (req, res) => { res.send({ message: 'User Page' }) })
+// // Router to App:
+// app.use(router)
+
+// const router = require("./routes/index.js");
+// const router = require("./routes/index");
+const router = require("./routes/");
+app.use(router);
 
 /* ------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
