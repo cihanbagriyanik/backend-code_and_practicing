@@ -69,16 +69,57 @@ const HOST = process.env.HOST || "127.0.0.1";
 // app.get('/path', (request, response) => response.send({ message: "in /path"}))
 // app.get('/a/b/c', (request, response) => response.send({ message: "in /a/b/c"}))
 
-// abc123 de olabilir abc123x de olabilir
+//? express-urls supported specialChars:
+//* abc123 de olabilir abc123x de olabilir
 // app.get('/abc(x)?123', (request, response) => response.send({ message: "in /abc(x)?123"}));
+//* abcx123 or abcx..........123 (min bir tane x olmali)
+// app.get('/abc(x)+123', (request, response) => response.send({ message: "in /abc(x)+123"}));
+// app.get('/abc123*', (req, res) => res.send("in 'abc123*'")) // abc123 or abc123... // abc123(ANY)
+// app.get('/abc*123', (req, res) => res.send("in 'abc*123'")) // abc123 or abc...123 // abc(ANY)123
 
-// abcx123 or abcx..........123 (min bir tane x olmali)
-app.get('/abc(x+)123', (request, response) => response.send({ message: "in /abc(x+)123"}));
+//? express-url supported regexp.
+// app.get('/xyz/', (req, res) => res.send("regex xyz")) // contains = xyz
+// app.get('/xyz$/', (req, res) => res.send("regex xyz$")) // endsWith = xyz
+// app.get(/^\/xyz/, (req, res) => res.send("regexp ^ xyz")) // startsWith = xyz
 
-app.get('/abc123*', (req, res) => res.send("in 'abc123*'")) // abc123 or abc123... // abc123(ANY)
-app.get('/abc*123', (req, res) => res.send("in 'abc*123'")) // abc123 or abc...123 // abc(ANY)123
+/* -------------------------------------------------------------------------- */
+//? URL Parameters (req.params):
+// /blog/99494
+// app.get("/blog/:blogId", (request, response) => {
+//   response.send({
+//     blogId: request.params.blogId,
+//     message: "Hello",
+//   });
+// });
+
+//? '\d' means only-digit-chars in regexp:
+//? '\D' means only-non-digit-chars in regexp:
+// app.get('/user/:id([0-9]+)/config/:status', (req, res) => {
+app.get("/user/:id(\\d+)/config/:status(\\D+)", (req, res) => {
+  console.log(req);
+  res.send({
+    userId: req.params.id,
+    url: {
+      protocol: req.protocol,
+      secure: req.secure,
+      subdomains: req.subdomains,
+      hostname: req.hostname,
+      baseUrl: req.baseUrl,
+      params: req.params,
+      query: req.query,
+      path: req.path,
+      originalUrl: req.originalUrl,
+      url: req.url,
+      method: req.method,
+    },
+  });
+});
+
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /* Express 
