@@ -1,6 +1,8 @@
 "use strict";
 /* -------------------------------------------------------
+
     EXPRESSJS - MIDDLEWARES
+
 ------------------------------------------------------- */
 
 const express = require("express");
@@ -84,22 +86,43 @@ const PORT = process.env.PORT || 8000;
 
 /* -------------------------------------------------------------------------- */
 
-const middleFunction1 = (req, res, next) => {
-  req.message1 = "MiddlewareFunction-1 runned.";
-  next();
-};
-const middleFunction2 = (req, res, next) => {
-  req.message2 = "MiddlewareFunction-2 runned.";
-  next();
-};
+// const middleFunction1 = (req, res, next) => {
+//   req.message1 = "MiddlewareFunction-1 runned.";
+//   next();
+// };
+// const middleFunction2 = (req, res, next) => {
+//   req.message2 = "MiddlewareFunction-2 runned.";
+//   next();
+// };
 
-// Call Middlewares:
-app.use("/", middleFunction1, middleFunction2); // Recommended
-// app.use("/", [middleFunction1, middleFunction2]);
+// // Call Middlewares:
+// app.use("/", middleFunction1, middleFunction2); // Recommended
+// // app.use("/", [middleFunction1, middleFunction2]);
 
-// Route-Path:
-app.get("/", (req, res) => {
-// app.get("/", middleFunction1, middleFunction2, (req, res) => { // middleware functions callback routing hemen oncesinde de cagirabilir.
+// // Route-Path:
+// app.get("/", (req, res) => {
+// // app.get("/", middleFunction1, middleFunction2, (req, res) => { // middleware functions callback routing hemen oncesinde de cagirabilir.
+//   res.send({
+//     message1: req.message1,
+//     message2: req.message2,
+
+//     message: "Finished",
+//   });
+// });
+
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+// const middleFunction1 = require("./middlewares/")
+// const middleFunctionArray = require("./middlewares/");
+// const [middleFunction1, middleFunction2] = require("./middlewares/");
+const {middleFunction1, middleFunction2} = require("./middlewares/");
+
+// app.get("/", middleFunction1, (req, res) => {
+// app.get("/", middleFunctionArray, (req, res) => {
+// app.get("/", middleFunction1, middleFunction2, (req, res) => {
+app.get("/", middleFunction1, middleFunction2, (req, res) => {
   res.send({
     message1: req.message1,
     message2: req.message2,
