@@ -74,29 +74,29 @@ const PORT = process.env.PORT || 8000;
 require("express-async-errors");
 
 app.get("/async", async (req, res, next) => {
-  throw new Error("Error on asyncFunciton");
+  res.errorStatusCode = 501;
+  throw new Error("Error on asyncFunction");
 });
 
 /* -------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
-// ERRORHANDLER
-//* errorHandler sayfanin en altinda yer almali.
+//? ERRORHANDLER
+//? errorHandler sayfanın en altında yer almalı.
 
 const errorHandler = (err, req, res, next) => {
-  //   console.log(err);
-  //   console.log("errorHandler runned");
+  const errorStatusCode = res.errorStatusCode ?? 500;
 
-  res.status(500).send({
+  // console.log(err)
+  // console.log('errorHandler runned.')
+
+  res.status(errorStatusCode).send({
     error: true,
     message: err.message,
     cause: err.cause,
-    // stack: err.stack,
+    // stack: err.stack
   });
 };
-
-//? For run errorHandler call in use.
-//? it must be last middlerWare
+//? for run errorHandler call in use.
+//? It must be at last middleware.
 app.use(errorHandler);
 
 /* -------------------------------------------------------------------------- */
