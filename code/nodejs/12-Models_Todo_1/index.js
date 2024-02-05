@@ -13,9 +13,9 @@ const PORT = process.env.PORT || 8000;
 // Accept json data:
 app.use(express.json());
 
-app.all("/", (req, res) => {
-  res.send("WELCOME TO TODO API");
-});
+// app.all("/", (req, res) => {
+//   res.send("WELCOME TO TODO API");
+// });
 /* -------------------------------------------------------------------------- */
 // https://sequelize.org/docs/v6/getting-started/
 
@@ -39,7 +39,7 @@ const sequelize = new Sequelize(
 const Todo = sequelize.define("todos", {
   //? NOT need define ID field, it will create auto.
   //   id: {
-  type: DataTypes.INTEGER,
+  //   type: DataTypes.INTEGER,
   //     unique: true, // default: false
   //     allowNull: false, // default: true
   //     field: 'custom_column_name', // Change field name
@@ -83,15 +83,52 @@ const Todo = sequelize.define("todos", {
 // sequelize.sync() // CREATE TABLE
 // sequelize.sync({ force: true }) // DROP TABLE & CREATE TABLE // Data cleared.
 // sequelize.sync({ alter: true }) // TO BACKUP & DROP & CREATE & FROM BACKUP // Recommended.
+
 /* -------------------------------------------------------------------------- */
 // CONNECTION:
 sequelize
   .authenticate()
   .then(() => console.log("DB Connected *"))
   .catch(() => console.log("DB NOT Connected *"));
-/* -------------------------------------------------------------------------- */
-// CONTROLLERS:
 
+/* -------------------------------------------------------------------------- */
+// ROUTERS:
+const router = express.Router();
+
+// List Todos
+router.get("/", async (req, res) => {
+  const data = await Todo.findAll();
+//   const data = await Todo.findAndCountAll();
+
+  res.status(200).send({
+    error: false,
+    result: data,
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+// Create Todo
+router.post("/", async (req, res) => {
+  //   const receivedData = req.body;
+  //   console.log(receivedData);
+
+  //   const data = await Todo.create({
+  //     title: req.body.title,
+  //     description: req.body.description,
+  //     priorty: req.body.priorty,
+  //     isDone: req.body.isDone,
+  //   });
+  const data = await Todo.create(req.body);
+
+  res.status(201).send({
+    error: false,
+    body: req.body, // Send Data
+    message: "Created",
+    result: data, // Recived Data
+  });
+});
+
+app.use(router);
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
