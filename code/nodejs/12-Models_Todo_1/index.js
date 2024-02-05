@@ -77,9 +77,23 @@ const Todo = sequelize.define("todos", {
   // updatedAt: false, // Unset
 });
 
-// Synchronization:
-sequelize.sync(); // CREATE TABLE
+/* -------------------------------------------------------------------------- */
+// SYNCHRONIZATION:
+//! SYNC MUST RUN ONCE!
+// sequelize.sync() // CREATE TABLE
+// sequelize.sync({ force: true }) // DROP TABLE & CREATE TABLE // Data cleared.
+// sequelize.sync({ alter: true }) // TO BACKUP & DROP & CREATE & FROM BACKUP // Recommended.
+/* -------------------------------------------------------------------------- */
+// CONNECTION:
+sequelize
+  .authenticate()
+  .then(() => console.log("DB Connected *"))
+  .catch(() => console.log("DB NOT Connected *"));
+/* -------------------------------------------------------------------------- */
+// CONTROLLERS:
 
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 const errorHandler = (err, req, res, next) => {
   const errorStatusCode = res.errorStatusCode ?? 500;
