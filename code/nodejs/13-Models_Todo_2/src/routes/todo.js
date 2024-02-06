@@ -2,104 +2,37 @@
 /* -------------------------------------------------------
     EXPRESSJS - TODO Project with Sequelize
 ------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-// Call Model:
-const Todo = require("../models/todo");
-
-/* -------------------------------------------------------------------------- */
 // ROUTERS:
-// const express = require("express");
-// const router = express.Router();
 const router = require("express").Router();
-/* -------------------------------------------------------------------------- */
-// List Todos
-router.get("/", async (req, res) => {
-  //   const data = await Todo.findAll();
-  const data = await Todo.findAndCountAll();
 
-  res.status(200).send({
-    error: false,
-    result: data,
-  });
-});
+// Import Controller:
+const todo = require("../controllers/todo");
 
-/* -------------------------------------------------------------------------- */
-// Create Todo
-router.post("/", async (req, res) => {
-  //   const receivedData = req.body;
-  //   console.log(receivedData);
+// // LIST TODOS:
+// router.get('/', todo.list)
 
-  //   const data = await Todo.create({
-  //     title: req.body.title,
-  //     description: req.body.description,
-  //     priorty: req.body.priorty,
-  //     isDone: req.body.isDone,
-  //   });
-  const data = await Todo.create(req.body);
+// // CRUD PROCESSES ->
 
-  res.status(201).send({
-    error: false,
-    body: req.body, // Send Data
-    message: "Created",
-    result: data, // Recived Data
-  });
-});
+// // CREATE TODO
+// router.post('/', todo.create)
 
-/* -------------------------------------------------------------------------- */
-// Read Todo
-router.get("/:id", async (req, res) => {
-  // const data = await Todo.findOne({ where: { id: req.params.id } });
-  // console.log(data);
+// // READ TODO:
+// router.get('/:id', todo.read)
 
-  const data = await Todo.findByPk(req.params.id);
+// // UPDATE TODO:
+// router.put('/:id', todo.update)
 
-  res.status(200).send({
-    error: false,
-    result: data,
-  });
-});
+// // DELETE TODO:
+// router.delete('/:id', todo.delete)
 
-/* -------------------------------------------------------------------------- */
-// Update Todo
-router.put("/:id", async (req, res) => {
-  const data = await Todo.update(req.body, { where: { id: req.params.id } });
+router.route("/").get(todo.list).post(todo.create);
 
-  res.status(202).send({
-    error: false,
-    body: req.body, // Send Data
-    message: "Updated",
-    result: data, // Recived Data
-  });
-});
+router
+  .route("/:id")
+  .get(todo.read)
+  .put(todo.update)
+  .patch(todo.update)
+  .delete(todo.delete);
 
-/* -------------------------------------------------------------------------- */
-// Delete Todo
-router.delete("/:id", async (req, res) => {
-  const data = await Todo.destroy({
-    where: {
-      id: req.params.id,
-    },
-  });
-
-  if (data > 0) {
-    //! 204 icerik kesinlikle dondurmuyor (204: No Content). Disallow Output
-    // Exists: Deleted
-    res.status(204).send({
-      error: false,
-      // message: "Deleted",
-      // result: data, // Recived Data
-    });
-  } else {
-    // Not Found
-    res.status(404).send({
-      error: false,
-      message: "Not Found",
-      result: data, // Recived Data
-    });
-  }
-});
-
-/* -------------------------------------------------------------------------- */
 // Export:
 module.exports = router;

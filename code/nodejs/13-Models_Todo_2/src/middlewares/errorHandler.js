@@ -2,13 +2,12 @@
 /* -------------------------------------------------------
     EXPRESSJS - TODO Project with Sequelize
 ------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-//* Error Handler Middleware:
+//* Error Handler Middleware
 
 module.exports = (err, req, res, next) => {
   const errorStatusCode = res.errorStatusCode ?? 500;
-  //   console.log("errorHandler runned.");
+  // console.log('errorHandler runned.')
+
   res.status(errorStatusCode).send({
     error: true, // special data
     message: err.message, // error string message
