@@ -129,6 +129,33 @@ router.post("/", async (req, res) => {
 });
 
 /* -------------------------------------------------------------------------- */
+// Read Todo
+router.get("/:id", async (req, res) => {
+  // const data = await Todo.findOne({ where: { id: req.params.id } });
+  // console.log(data);
+
+  const data = await Todo.findByPk(req.params.id);
+
+  res.status(200).send({
+    error: false,
+    result: data,
+  });
+});
+
+/* -------------------------------------------------------------------------- */
+// Update Todo
+router.put("/:id", async (req, res) => {
+  const data = await Todo.update(req.body, { where: { id: req.params.id } });
+
+  res.status(202).send({
+    error: false,
+    body: req.body, // Send Data
+    message: "Updated",
+    result: data, // Recived Data
+  });
+});
+
+/* -------------------------------------------------------------------------- */
 // Delete Todo
 router.delete("/:id", async (req, res) => {
   const data = await Todo.destroy({
@@ -137,21 +164,24 @@ router.delete("/:id", async (req, res) => {
     },
   });
 
-  if (data) {
+  if (data > 0) {
+    //! 204 icerik kesinlikle dondurmuyor (204: No Content). Disallow Output
+    // Exists: Deleted
     res.status(204).send({
       error: false,
-      message: "Deleted",
-      result: data,
+      // message: "Deleted",
+      // result: data, // Recived Data
     });
   } else {
+    // Not Found
     res.status(404).send({
-      error: true,
-      message: "Record not found",
+      error: false,
+      message: "Not Found",
+      result: data, // Recived Data
     });
   }
 });
 
-/* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 app.use(router);
 /* -------------------------------------------------------------------------- */
