@@ -23,16 +23,9 @@ const router = require("./todo.router");
 app.use(router);
 
 /* -------------------------------------------------------------------------- */
-const errorHandler = (err, req, res, next) => {
-  const errorStatusCode = res.errorStatusCode ?? 500;
-  //   console.log("errorHandler runned.");
-  res.status(errorStatusCode).send({
-    error: true, // special data
-    message: err.message, // error string message
-    cause: err.cause, // error option cause
-    // stack: err.stack, // error details
-  });
-};
-app.use(errorHandler);
+// ErrorHandler:
+
+app.use(require("./src/middlewares/errorHandler"));
+
 /* -------------------------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
