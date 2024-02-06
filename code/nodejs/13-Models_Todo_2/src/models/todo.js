@@ -5,10 +5,8 @@
 // https://sequelize.org/docs/v6/getting-started/
 const { Sequelize, DataTypes } = require("sequelize");
 // DB Connection Configs:
-// const sequelize = new Sequelize('sqlite:./db.sqlite3')
-const sequelize = new Sequelize(
-  "sqlite:" + (process.env.SQLITE || "../../db.sqlite3")
-);
+// const sequelize = new Sequelize('sqlite:../../db.sqlite3')
+const sequelize = new Sequelize("sqlite:" + process.env.SQLITE);
 // Postgresql:
 // $ npm i pg pg-hstore
 // const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname')

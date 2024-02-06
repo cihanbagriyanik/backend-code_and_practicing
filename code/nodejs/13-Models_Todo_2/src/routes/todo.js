@@ -3,10 +3,10 @@
     EXPRESSJS - TODO Project with Sequelize
 ------------------------------------------------------- */
 // ROUTERS:
-const router = require("express").Router();
+const router = require("express").Router()
 
 // Import Controller:
-const todo = require("../controllers/todo");
+const todo = require('../controllers/todo')
 
 // // LIST TODOS:
 // router.get('/', todo.list)
@@ -19,20 +19,22 @@ const todo = require("../controllers/todo");
 // // READ TODO:
 // router.get('/:id', todo.read)
 
+
 // // UPDATE TODO:
 // router.put('/:id', todo.update)
 
 // // DELETE TODO:
 // router.delete('/:id', todo.delete)
 
-router.route("/").get(todo.list).post(todo.create);
+router.route('/')
+    .get(todo.list)
+    .post(todo.create)
 
-router
-  .route("/:id")
-  .get(todo.read)
-  .put(todo.update)
-  .patch(todo.update)
-  .delete(todo.delete);
+router.route('/:id')
+    .get(todo.read)
+    .put(todo.update)
+    .patch(todo.update)
+    .delete(todo.delete)
 
 // Export:
-module.exports = router;
+module.exports = router
