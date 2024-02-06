@@ -19,7 +19,8 @@ app.use(express.json());
 
 /* -------------------------------------------------------------------------- */
 
-const router = require("./todo.router");
+// const router = require("./todo.router");
+const router = require("./src/routes/todo");
 app.use(router);
 
 /* -------------------------------------------------------------------------- */
