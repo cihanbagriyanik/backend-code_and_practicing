@@ -52,6 +52,7 @@ https://www.mongodb.com/developer/products/mongodb/cheat-sheet/
       - db.coll.find().limit(5)
       - db.coll.find().skip(5).limit(5)
     - Sort:
+      <!-- //! 1 is ASC and -1 is DESC in sort() -->
       - db.coll.find().sort({ age: -1 }).limit(5)
     - Count:
       - db.coll.find().count()
