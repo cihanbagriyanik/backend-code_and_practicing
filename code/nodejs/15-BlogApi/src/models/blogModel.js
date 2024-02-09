@@ -23,7 +23,7 @@ const mongoose = require("mongoose");
 //       select: true, // cigirilinca gelsin mi?
 //       index: true, // aramada hizli erisim
 //       unique: true,
-//       required: true, // veri girisi zorunlu mu?
+//       require: true, // veri girisi zorunlu mu?
 //       enum: [[1, 2, 3], "error message"], // standart veri girisi saglar
 //       validate: [
 //         // girilen veriyi istenilen fonksiyon ile kontrol eder
@@ -58,12 +58,12 @@ const BlogPostSchema = new mongoose.Schema(
     title: {
       type: String,
       trim: true,
-      required: true,
+      require: true,
     },
     content: {
       type: String,
       trim: true,
-      required: true,
+      require: true,
     },
     published: {
       type: Boolean,
@@ -73,7 +73,7 @@ const BlogPostSchema = new mongoose.Schema(
     //updatedAt  mongo takip ediyor
   },
   {
-    collection: blogPost,
+    collection: "blogPost",
     timestamps: true, // veri kayıt ve güncellemede zaman damgası
   }
 );
