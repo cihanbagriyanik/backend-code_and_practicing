@@ -3,7 +3,7 @@
     * BLOG API PROJECT (BLOG POST and CATEGORY CONTROLLER)
 ------------------------------------------------------- */
 
-// EXPORT:
+// IMPORT BlogPost and BlogCategory from BlogModel:
 const { BlogPost, BlogCategory } = require("../models/blogModel");
 
 /* -------------------------------------------------------------------------- */
@@ -72,7 +72,7 @@ module.exports.BlogCategory = {
 module.exports.BlogPost = {
   //! GET
   list: async (req, res) => {
-    const data = await BlogPost.find();
+    const data = await BlogPost.find().populate("blogCategoryId");
 
     res.status(200).send({
       error: false,
@@ -94,7 +94,9 @@ module.exports.BlogPost = {
 
   //! /:postId -> GET
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId });
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      "blogCategoryId"
+    );
 
     res.status(200).send({
       error: false,

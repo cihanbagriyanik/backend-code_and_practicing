@@ -6,10 +6,10 @@
 /* -------------------------------------------------------------------------- */
 //* Routers
 
-// EXPORT
+// IMPORT Express and Router
 const router = require("express").Router();
 
-// Import Controller:
+// IMPORT BlogPost and BlogCategory from BlogController:
 const { BlogPost, BlogCategory } = require("../controllers/blogController");
 
 /* -------------------------------------------------------------------------- */

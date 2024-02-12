@@ -7,12 +7,12 @@
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-//? Express Export
+//? Express Import
 const express = require("express");
 const app = express();
 
 /* -------------------------------------------------------------------------- */
-//? DOTENV Export
+//? DOTENV Import
 require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 
@@ -25,7 +25,7 @@ require("./src/configs/dbConnection");
 app.use(express.json());
 
 /* -------------------------------------------------------------------------- */
-//? Express-async-errors import
+//? Express-async-errors Import
 require("express-async-errors");
 
 /* -------------------------------------------------------------------------- */
@@ -36,7 +36,7 @@ app.all("/", (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 //? ROUTES
-// app.use("/user", require("./src/routers/userRouter"));
+app.use("/user", require("./src/routers/userRouter"));
 app.use("/blog", require("./src/routers/blogRouter"));
 
 /* -------------------------------------------------------------------------- */
