@@ -5,7 +5,7 @@
 
 /* -------------------------------------------------------------------------- */
 
-require("express-async-errors");
+// require("express-async-errors");
 
 const { BlogPost, BlogCategory } = require("../models/blogModel");
 
@@ -74,7 +74,7 @@ module.exports.BlogCategory = {
 //? BLOG POST CONTROLLER
 module.exports.BlogPost = {
   list: async (req, res) => {
-    const data = await BlogPost.find();
+    const data = await BlogPost.find().populate("blogCategoryId");
 
     res.status(200).send({
       error: false,
@@ -94,7 +94,9 @@ module.exports.BlogPost = {
   },
 
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId });
+    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
+      "blogCategoryId"
+    );
 
     res.status(200).send({
       error: false,

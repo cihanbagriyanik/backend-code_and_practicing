@@ -18,6 +18,10 @@ require("./src/configs/dbConnection");
 app.use(express.json()); //! KONUMA DIKKAT
 
 /* -------------------------------------------------------------------------- */
+//? Express-async-errors import
+require("express-async-errors");
+
+/* -------------------------------------------------------------------------- */
 //? HOME PAGE
 app.all("/", (req, res) => {
   res.send("Welcome First ExpressJs Project with Mongo");
@@ -25,6 +29,7 @@ app.all("/", (req, res) => {
 
 /* -------------------------------------------------------------------------- */
 //? ROUTES
+app.use("/user", require("./src/routers/userRouter"));
 app.use("/blog", require("./src/routers/blogRouter"));
 
 /* -------------------------------------------------------------------------- */
