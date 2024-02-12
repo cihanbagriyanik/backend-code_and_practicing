@@ -6,13 +6,17 @@
 /* -------------------------------------------------------------------------- */
 //* Routers
 
+// EXPORT
 const router = require("express").Router();
+
 // Import Controller:
 const { BlogPost, BlogCategory } = require("../controllers/blogController");
 
-// URL: /blog
+/* -------------------------------------------------------------------------- */
+//! URL: /blog
 
-// BlogCategory:
+/* -------------------------------------------------------------------------- */
+//? BlogCategory:
 router.route("/category").get(BlogCategory.list).post(BlogCategory.create);
 
 router
@@ -21,7 +25,8 @@ router
   .put(BlogCategory.update)
   .delete(BlogCategory.delete);
 
-// BlogPost:
+/* -------------------------------------------------------------------------- */
+//? BlogPost:
 router.route("/post").get(BlogPost.list).post(BlogPost.create);
 
 router
@@ -30,5 +35,6 @@ router
   .put(BlogPost.update)
   .delete(BlogPost.delete);
 
-// Export:
+/* -------------------------------------------------------------------------- */
+//? Export:
 module.exports = router;

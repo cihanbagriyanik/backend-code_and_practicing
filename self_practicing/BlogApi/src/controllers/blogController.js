@@ -3,16 +3,13 @@
     * BLOG API PROJECT (BLOG POST and CATEGORY CONTROLLER)
 ------------------------------------------------------- */
 
-/* -------------------------------------------------------------------------- */
-
-// require("express-async-errors");
-
+// EXPORT:
 const { BlogPost, BlogCategory } = require("../models/blogModel");
 
 /* -------------------------------------------------------------------------- */
 //? Blog Category CONTROLLER
 module.exports.BlogCategory = {
-  // GET
+  //! GET
   list: async (req, res) => {
     const data = await BlogCategory.find();
 
@@ -22,8 +19,8 @@ module.exports.BlogCategory = {
     });
   },
 
-  // CRUD Processes:
-  // POST
+  //* CRUD Processes:
+  //! POST
   create: async (req, res) => {
     const data = await BlogCategory.create(req.body);
 
@@ -34,7 +31,7 @@ module.exports.BlogCategory = {
     });
   },
 
-  // /:categoryId -> GET
+  //! /:categoryId -> GET
   read: async (req, res) => {
     const data = await BlogCategory.findOne({ _id: req.params.categoryId });
 
@@ -44,7 +41,7 @@ module.exports.BlogCategory = {
     });
   },
 
-  // /:categoryId -> PUT / PATCH
+  //! /:categoryId -> PUT / PATCH
   update: async (req, res) => {
     const data = await BlogCategory.updateOne(
       { _id: req.params.categoryId },
@@ -59,7 +56,7 @@ module.exports.BlogCategory = {
     });
   },
 
-  // /:categoryId -> DELETE
+  //! /:categoryId -> DELETE
   delete: async (req, res) => {
     const data = await BlogCategory.deleteOne({ _id: req.params.categoryId });
 
@@ -73,8 +70,9 @@ module.exports.BlogCategory = {
 /* -------------------------------------------------------------------------- */
 //? BLOG POST CONTROLLER
 module.exports.BlogPost = {
+  //! GET
   list: async (req, res) => {
-    const data = await BlogPost.find().populate("blogCategoryId");
+    const data = await BlogPost.find();
 
     res.status(200).send({
       error: false,
@@ -82,7 +80,8 @@ module.exports.BlogPost = {
     });
   },
 
-  // CRUD
+  //* CRUD Processes:
+  //! POST
   create: async (req, res) => {
     const data = await BlogPost.create(req.body);
 
@@ -93,10 +92,9 @@ module.exports.BlogPost = {
     });
   },
 
+  //! /:postId -> GET
   read: async (req, res) => {
-    const data = await BlogPost.findOne({ _id: req.params.postId }).populate(
-      "blogCategoryId"
-    );
+    const data = await BlogPost.findOne({ _id: req.params.postId });
 
     res.status(200).send({
       error: false,
@@ -104,6 +102,7 @@ module.exports.BlogPost = {
     });
   },
 
+  //! /:postId -> PUT / PATCH
   update: async (req, res) => {
     const data = await BlogPost.updateOne({ _id: req.params.postId }, req.body);
 
@@ -113,6 +112,7 @@ module.exports.BlogPost = {
     });
   },
 
+  //! /:postId -> DELETE
   delete: async (req, res) => {
     const data = await BlogPost.deleteOne({ _id: req.params.postId });
     // console.log(data);
