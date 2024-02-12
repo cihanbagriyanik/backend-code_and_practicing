@@ -4,12 +4,14 @@
 ------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-//* Controllers
 
 require("express-async-errors");
 
-const { BlogPost } = require("../models/blogModel");
+const { BlogPost, BlogCategory } = require("../models/blogModel");
 
+//? BlogCategory Controller
+
+//? BLOG POST CONTROLLER
 module.exports.BlogPost = {
   list: async (req, res) => {
     const data = await BlogPost.find();
