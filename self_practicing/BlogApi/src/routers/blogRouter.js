@@ -23,6 +23,7 @@ router
   .route("/category/:categoryId")
   .get(BlogCategory.read)
   .put(BlogCategory.update)
+  .patch(BlogCategory.update)
   .delete(BlogCategory.delete);
 
 /* -------------------------------------------------------------------------- */
@@ -33,6 +34,7 @@ router
   .route("/post/:postId")
   .get(BlogPost.read)
   .put(BlogPost.update)
+  .patch(BlogPost.update)
   .delete(BlogPost.delete);
 
 /* -------------------------------------------------------------------------- */
