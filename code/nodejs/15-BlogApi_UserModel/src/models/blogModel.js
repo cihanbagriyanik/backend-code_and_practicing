@@ -48,6 +48,22 @@ const mongoose = require("mongoose");
 //   }
 // );
 
+//? BlogCategory:
+const BlogCategorySchmea = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      require: true,
+    },
+  },
+  {
+    collection: "blogCategories",
+    timestamps: true,
+  }
+);
+
+//? BlogPost:
 const BlogPostSchema = new mongoose.Schema(
   {
     // _id
@@ -70,7 +86,7 @@ const BlogPostSchema = new mongoose.Schema(
       default: true,
     },
     // createdAt
-    //updatedAt  mongo takip ediyor
+    // updatedAt  mongo takip ediyor
   },
   {
     collection: "blogPost",
@@ -78,7 +94,8 @@ const BlogPostSchema = new mongoose.Schema(
   }
 );
 
+// Export
 module.exports = {
+  BlogCategory: mongoose.model("BlogCategory", BlogCategorySchmea),
   BlogPost: mongoose.model("BlogPost", BlogPostSchema),
-  // BlogCategory
 };

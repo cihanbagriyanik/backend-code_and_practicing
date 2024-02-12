@@ -10,6 +10,7 @@ const router = require("express").Router();
 // Import Controller:
 const { BlogPost } = require("../controllers/blogController");
 
+// URL: /blog
 router.route("/post").get(BlogPost.list).post(BlogPost.create);
 
 router
