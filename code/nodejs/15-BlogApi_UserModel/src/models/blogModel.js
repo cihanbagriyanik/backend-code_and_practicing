@@ -23,7 +23,7 @@ const mongoose = require("mongoose");
 //       select: true, // cigirilinca gelsin mi?
 //       index: true, // aramada hizli erisim
 //       unique: true,
-//       require: true, // veri girisi zorunlu mu?
+//       required: true, // veri girisi zorunlu mu?
 //       enum: [[1, 2, 3], "error message"], // standart veri girisi saglar
 //       validate: [
 //         // girilen veriyi istenilen fonksiyon ile kontrol eder
@@ -54,7 +54,7 @@ const BlogCategorySchmea = new mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      require: true,
+      required: true,
     },
   },
   {
@@ -74,17 +74,18 @@ const BlogPostSchema = new mongoose.Schema(
     blogCategoryId: {
       type: mongoose.Schema.Types.ObjectId, // ForeignKey - // Relational ID
       ref: "BlogCategory",
+      required: true,
     },
 
     title: {
       type: String,
       trim: true,
-      require: true,
+      required: true,
     },
     content: {
       type: String,
       trim: true,
-      require: true,
+      required: [true, "Gonderilmesi gereklidir."],
     },
     published: {
       type: Boolean,
