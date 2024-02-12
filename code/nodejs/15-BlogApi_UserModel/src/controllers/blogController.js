@@ -12,6 +12,7 @@ const { BlogPost, BlogCategory } = require("../models/blogModel");
 /* -------------------------------------------------------------------------- */
 //? Blog Category CONTROLLER
 module.exports.BlogCategory = {
+  // GET
   list: async (req, res) => {
     const data = await BlogCategory.find();
 
