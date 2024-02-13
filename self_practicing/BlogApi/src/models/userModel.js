@@ -11,13 +11,6 @@ const mongoose = require("mongoose");
 //? Password Encrypt:
 const passwordEncrypt = require("../helpers/passwordEncrypt");
 
-//? Password Validation:
-const validatePassword = (password) => {
-  const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  return regex.test(password);
-};
-
 /* -------------------------------------------------------------------------- */
 // Schema:
 const UserSchema = new mongoose.Schema(
@@ -25,11 +18,15 @@ const UserSchema = new mongoose.Schema(
     email: {
       type: String,
       trim: true,
-      unique: true,
+      // unique: [true, "There is this email. Email field must be unique."],
       required: [true, "Email field required."],
       validate: [
-        (email) => email.includes("@") && email.includes("."),
-        "Email type is NOT correct",
+        (email) => {
+          const emailRegexCheck =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return emailRegexCheck.test(email);
+        },
+        "Email type is not correct.",
       ],
     },
 
@@ -38,15 +35,18 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       required: true,
       validate: [
-        {
-          validator: validatePassword,
-          message:
-            "Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
-          set: (password) => {
-            passwordEncrypt(password);
-          },
+        (password) => {
+          const passwordRegexCheck =
+            // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+            /^(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+          return passwordRegexCheck.test(password);
         },
+        //! -------------------------------------------------------------------------- DEGISEBILIR DIKKAT REGEXE GORE */
+        "Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
       ],
+      set: (password) => {
+        return passwordEncrypt(password);
+      },
     },
 
     firstName: {
@@ -71,3 +71,4 @@ const UserSchema = new mongoose.Schema(
 module.exports = {
   User: mongoose.model("User", UserSchema),
 };
+/* -------------------------------------------------------------------------- */
