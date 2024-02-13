@@ -41,11 +41,15 @@ require("express-async-errors");
 /* -------------------------------------------------------------------------- */
 //? HOME Page
 app.all("/", (req, res) => {
+  // res.send("Welcome First Express Project"); // For with out Cookies
+  /* -------------------------------------------------------------------------- */
+  // With Cookies
   res.send({
     message: "Welcome First ExpressJs Project with Mongo", // INSIDE OBJE
     session: req.session,
     login: req.session.email ? true : false,
   });
+  /* -------------------------------------------------------------------------- */
 });
 
 /* -------------------------------------------------------------------------- */
