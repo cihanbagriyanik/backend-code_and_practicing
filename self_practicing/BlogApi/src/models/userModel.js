@@ -34,19 +34,13 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      validate: [
-        (password) => {
-          const passwordRegexCheck =
-            // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-            /^(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
-          return passwordRegexCheck.test(password);
-        },
-        //! -------------------------------------------------------------------------- DEGISEBILIR DIKKAT REGEXE GORE */
-        "Your password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.",
-      ],
-      set: (password) => {
-        return passwordEncrypt(password);
-      },
+      set: (password) =>
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+          password
+        )
+          ? passwordEncrypt(password)
+          : "wrong",
+      validate: (password) => (password == "wrong" ? false : true),
     },
 
     firstName: {
