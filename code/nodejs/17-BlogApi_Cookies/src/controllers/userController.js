@@ -75,8 +75,25 @@ module.exports.User = {
       const user = await User.findOne({ email: email });
       if (user && passwordEncrypt(password) == user.password) {
         // email & password true
-        res.send({
+
+        // Set Sessions:
+        req.session = {
+          email: user.email,
+          password: user.password,
+        };
+
+        // Remind Me:
+        // Set Cookie:
+        if (req.body.remindMe) {
+          req.session.remindMe = true;
+          // Set MaxAge foir user/login:
+          req.sessionOptions.maxAge = 1000 * 60; // 1dk - 1000 * 60 * 60 (1 Saat) - 1000 * 60 * 60 * 24 (1 gun) - 1000 * 60 * 60 * 24 * 3 (3 Gun)
+        }
+
+        res.status(200).send({
+          error: false,
           message: "Logined",
+          section: req.section,
         });
       } else {
         res.errorStatusCode = 401;
@@ -88,5 +105,14 @@ module.exports.User = {
     }
   },
 
-  logout: async (req, res) => {},
+  logout: async (req, res) => {
+    // Session destroy:
+    req.session = null;
+
+    res.status(200).send({
+      error: false,
+      message: "Logout OK",
+      session: req.session,
+    });
+  },
 };

@@ -14,13 +14,18 @@ const PORT = process.env.PORT || 8000;
 require("./src/configs/dbConnection");
 
 /* -------------------------------------------------------------------------- */
-// SessionCookies:
+//? SessionCookies:
 // http://expressjs.com/en/resources/middleware/cookie-session.html
 // https://www.npmjs.com/package/cookie-session
 //* $ npm i cookie-session
 
+const session = require("cookie-session");
 
-
+app.use(
+  session({
+    secret: process.env.SECRET_KEY || "write_random_chars_in_here",
+  })
+);
 
 /* -------------------------------------------------------------------------- */
 //? JSON
@@ -33,7 +38,13 @@ require("express-async-errors");
 /* -------------------------------------------------------------------------- */
 //? HOME PAGE
 app.all("/", (req, res) => {
-  res.send("Welcome First ExpressJs Project with Mongo");
+  // res.send("Welcome First ExpressJs Project with Mongo");
+  // console.log(req.session);
+  res.send({
+    message: "Welcome First ExpressJs Project with Mongo", // INSIDE OBJE
+    session: req.session,
+    login: req.session.email ? true : false,
+  });
 });
 
 /* -------------------------------------------------------------------------- */
