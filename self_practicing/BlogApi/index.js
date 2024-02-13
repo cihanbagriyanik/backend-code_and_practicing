@@ -21,6 +21,16 @@ const PORT = process.env.PORT || 8000;
 require("./src/configs/dbConnection");
 
 /* -------------------------------------------------------------------------- */
+//? SessionCookies:
+const session = require("cookie-session");
+
+app.use(
+  session({
+    secret: process.env.SECRET_KEY || "write_random_chars_in_here",
+  })
+);
+
+/* -------------------------------------------------------------------------- */
 //? JSON
 app.use(express.json());
 
@@ -31,7 +41,11 @@ require("express-async-errors");
 /* -------------------------------------------------------------------------- */
 //? HOME Page
 app.all("/", (req, res) => {
-  res.send("Welcome First Express Project");
+  res.send({
+    message: "Welcome First ExpressJs Project with Mongo", // INSIDE OBJE
+    session: req.session,
+    login: req.session.email ? true : false,
+  });
 });
 
 /* -------------------------------------------------------------------------- */
