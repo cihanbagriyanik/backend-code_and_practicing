@@ -56,9 +56,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      set: (password) => {
-        passwordEncrypt(password);
-      },
+      set: (password) => passwordEncrypt(password),
     },
 
     firstName: String,
