@@ -31,6 +31,10 @@ app.use(
 );
 
 /* -------------------------------------------------------------------------- */
+//? Filtering, Searching, Sorting, Pagination
+app.use(require("./src/middlewares/findSearchSortPage"));
+
+/* -------------------------------------------------------------------------- */
 //? JSON
 app.use(express.json());
 
