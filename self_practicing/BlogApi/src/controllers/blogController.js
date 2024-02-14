@@ -11,7 +11,7 @@ const { BlogPost, BlogCategory } = require("../models/blogModel");
 module.exports.BlogCategory = {
   //! GET
   list: async (req, res) => {
-    const data = await BlogCategory.find();
+    const data = await res.getModelList(BlogCategory);
 
     res.status(200).send({
       error: false,
@@ -72,10 +72,11 @@ module.exports.BlogCategory = {
 module.exports.BlogPost = {
   //! GET
   list: async (req, res) => {
-    const data = await BlogPost.find().populate("blogCategoryId");
+    const data = await res.getModelList(BlogPost, "blogCategoryId");
 
     res.status(200).send({
       error: false,
+      details: await res.getModelListDetails(BlogPost),
       data: data,
     });
   },
