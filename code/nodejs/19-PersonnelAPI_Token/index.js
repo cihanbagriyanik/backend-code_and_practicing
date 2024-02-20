@@ -48,8 +48,13 @@ app.all("/", (req, res) => {
   res.send({
     error: false,
     message: "Welcome to PERSONNEL API", // INSIDE OBJE
+    session: req.session,
+    isLogin: req.isLogin,
   });
 });
+
+//* /authentication
+app.use(require("./src/middlewares/authentication"));
 
 //* /departments
 app.use("/departments", require("./src/routes/department.router"));
@@ -59,6 +64,9 @@ app.use("/personnels", require("./src/routes/personnel.router"));
 
 //* /tokens
 app.use("/tokens", require("./src/routes/token.router"));
+
+//* /auth
+app.use("/auth", require("./src/routes/auth.router"));
 
 /* -------------------------------------------------------------------------- */
 
