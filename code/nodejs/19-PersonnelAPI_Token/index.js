@@ -57,6 +57,9 @@ app.use("/departments", require("./src/routes/department.router"));
 //* /personnels
 app.use("/personnels", require("./src/routes/personnel.router"));
 
+//* /tokens
+app.use("/tokens", require("./src/routes/token.router"));
+
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
