@@ -11,8 +11,7 @@ const Personnel = require("../models/personnel.model");
 module.exports = {
   // GET:
   list: async (req, res) => {
-    // const data = await Personnel.find(search).sort(sort).skip(skip).limit(limit)
-    const data = await res.getModelList(Personnel);
+    const data = await res.getModelList(Personnel, {}, "departmentId");
 
     res.status(200).send({
       error: false,
@@ -24,8 +23,6 @@ module.exports = {
   // CRUD Processes:
   // POST
   create: async (req, res) => {
-    const data = await Personnel.create(req.body);
-
     //? isLead Control:
     const isLead = req.body?.isLead || false;
     if (isLead) {
@@ -35,6 +32,7 @@ module.exports = {
       );
     }
 
+    const data = await Personnel.create(req.body);
     res.status(201).send({
       error: false,
       data,
@@ -53,8 +51,6 @@ module.exports = {
 
   // /:id -> PUT / PATCH
   update: async (req, res) => {
-    const data = await Personnel.updateOne({ _id: req.params.id }, req.body);
-
     // isLead Control:
     const isLead = req.body?.isLead || false;
     if (isLead) {
@@ -68,6 +64,9 @@ module.exports = {
       );
     }
 
+    const data = await Personnel.updateOne({ _id: req.params.id }, req.body, {
+      runValidators: true,
+    });
     res.status(202).send({
       error: false,
       data,
