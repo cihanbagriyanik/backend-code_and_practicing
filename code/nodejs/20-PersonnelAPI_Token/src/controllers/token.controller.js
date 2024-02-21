@@ -11,7 +11,6 @@ const Token = require("../models/token.model");
 module.exports = {
   // GET:
   list: async (req, res) => {
-    // const data = await Token.find(search).sort(sort).skip(skip).limit(limit)
     const data = await res.getModelList(Token);
 
     res.status(200).send({
@@ -42,7 +41,7 @@ module.exports = {
     });
   },
 
-/*
+  /*
   // /:id -> PUT / PATCH
   update: async (req, res) => {
     const data = await Token.updateOne({ _id: req.params.id }, req.body);
