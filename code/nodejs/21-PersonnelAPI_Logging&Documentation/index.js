@@ -6,18 +6,78 @@
     $ npm i express dotenv mongoose express-async-errors
     $ npm i cookie-session
     $ npm i jsonwebtoken
+    $ npm i morgan
+    $ npm i swagger-autogen
+    $ npm i swagger-ui-express
+    $ npm i redoc-express
 */
 
 const express = require("express");
 const app = express();
 
-require("dotenv").config();
-
 /* -------------------------------------------------------------------------- */
 // * Required Modules:
 //? envVariables to process.env:
+require("dotenv").config();
 const PORT = process.env.PORT || 8000;
 
+/* -------------------------------------------------------------------------- */
+//? LOG
+// $ npm i morgan
+// morgan bir middleware dir
+const morgan = require("morgan");
+// console.log(morgan);
+// app.use(morgan("combined"));
+
+//?  LOG Kayit Tutma
+const fs = require("node:fs"); // file system
+
+const now = new Date();
+const today = now.toISOString().split("T")[0];
+
+app.use(
+  morgan("combined", {
+    stream: fs.createWriteStream(`./logs/${today}.log`, { flags: "a+" }),
+  })
+);
+
+/* -------------------------------------------------------------------------- */
+//? swagger-ui-express
+//$ npm i swagger-ui-express
+
+// swaggerUi import
+const swaggerUi = require("swagger-ui-express");
+// swagger json import
+const swaggerJson = require("./swagger.json");
+
+app.use(
+  "/docs/swagger",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJson, {
+    swaggerOptions: { persistAuthorization: true },
+  })
+);
+
+/* -------------------------------------------------------------------------- */
+//? redoc
+// $ npm i redoc-express
+
+// import
+const redoc = require("redoc-express");
+
+app.use("/docs/json", (req, res) => {
+  res.sendFile("swagger.json", { root: "." });
+});
+
+app.use(
+  "/docs/redoc",
+  redoc({
+    specUrl: "/docs/json",
+    title: "API Docs",
+  })
+);
+
+/* -------------------------------------------------------------------------- */
 //? asyncErrors to errorHandler:
 require("express-async-errors");
 
