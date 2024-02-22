@@ -108,6 +108,16 @@ app.all("/", (req, res) => {
   res.send({
     error: false,
     message: "Welcome to PERSONNEL API", // INSIDE OBJE
+    session: req.session,
+    isLogin: req.isLogin,
+    api: {
+      documents: {
+        swagger: "http://127.0.0.1:8000/docs/swagger",
+        redoc: "http://127.0.0.1:8000/docs/redoc",
+        json: "http://127.0.0.1:8000/docs/json",
+      },
+      contact: "clarusway.com",
+    },
   });
 });
 

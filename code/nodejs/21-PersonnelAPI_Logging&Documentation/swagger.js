@@ -8,7 +8,7 @@ const packageJson = require("./package.json");
 ----------------------------------------------------------------------------- */
 
 require("dotenv").config();
-const HOST = process.env?.PORT || "127.0.0.1";
+const HOST = process.env?.HOST || "127.0.0.1";
 const PORT = process.env?.PORT || 8000;
 
 /* -------------------------------------------------------------------------- */
@@ -26,7 +26,7 @@ const document = {
     license: { name: "BSD License" },
   },
 
-  host: ` ${HOST} : ${PORT} `,
+  host: ` ${HOST}:${PORT} `, //! arada bosluk olmasin
 
   basePath: "/",
 
@@ -46,7 +46,15 @@ const document = {
   security: [{ JWT: true }],
   */
 
-  definition: {},
+  definition: {
+    // "Department":{
+    //     "name":"ObjectId",
+    //     require: true
+
+    // }
+    Department: require("./src/models/department.model").schema.obj,
+    Personnel: require("./src/models/personnel.model").schema.obj,
+  },
 };
 
 const routes = ["./index.js"];
