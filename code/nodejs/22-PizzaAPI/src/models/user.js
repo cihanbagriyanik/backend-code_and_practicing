@@ -33,17 +33,6 @@ const UserSchema = new mongoose.Schema(
       set: (password) => passwordEncrypt(password),
     },
 
-    email: {
-      type: String,
-      trim: true,
-      required: [true, "Email field must be required"],
-      unique: [true, "There is this email. Email field must be unique"],
-      validate: [
-        (email) => email.includes("@") && email.includes("."),
-        "Email type is not correct.",
-      ],
-    },
-
     isActive: {
       type: Boolean,
       default: true,

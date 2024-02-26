@@ -36,6 +36,9 @@ dbConnection();
 // Accept JSON:
 app.use(express.json());
 
+// Check Token:
+app.use(require("./src/middlewares/authentication"));
+
 // morgan-logger:
 app.use(require("./src/middlewares/logger"));
 
@@ -55,6 +58,8 @@ app.all("/", (req, res) => {
   });
 });
 
+// auth:
+app.use("/auth", require("./src/routes/auth"));
 // user:
 app.use("/users", require("./src/routes/user"));
 // token:
