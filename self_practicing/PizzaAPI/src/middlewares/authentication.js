@@ -2,14 +2,14 @@
 /* --------------------------------------------------------------------------
    * NODEJS EXPRESS | CLARUSWAY FullStack Team
 ----------------------------------------------------------------------------- */
+
 // app.use(authentication);
 
+/* -------------------------------------------------------------------------- */
+//? Requaring
 const Token = require("../models/token");
 
-const User = require("../models/user");
-
 /* -------------------------------------------------------------------------- */
-
 module.exports = async (req, res, next) => {
   // Authorization: Token ...
   // Authorization: ApiKey ...
@@ -25,7 +25,6 @@ module.exports = async (req, res, next) => {
       "userId"
     );
 
-    const user = tokenData ? tokenData.userId : undefined;
     req.user = tokenData ? tokenData.userId : undefined;
   }
   next();

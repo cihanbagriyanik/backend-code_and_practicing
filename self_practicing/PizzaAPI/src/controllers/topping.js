@@ -49,7 +49,7 @@ module.exports = {
     });
   },
 
-  //! /:categoryId -> GET
+  //! /:id -> GET
   read: async (req, res) => {
     /*
         #swagger.tags = ["Toppings"]
@@ -64,7 +64,7 @@ module.exports = {
     });
   },
 
-  //! /:categoryId -> PUT / PATCH
+  //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
         #swagger.tags = ["Toppings"]
@@ -82,7 +82,7 @@ module.exports = {
     });
   },
 
-  //! /:categoryId -> DELETE
+  //! /:id -> DELETE
   delete: async (req, res) => {
     /*
         #swagger.tags = ["Toppings"]
