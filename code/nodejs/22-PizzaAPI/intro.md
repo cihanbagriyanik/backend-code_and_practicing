@@ -20,10 +20,12 @@
             auth.js
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
         helpers/
             passwordEncrypt.js
+            setToken.js
             sync.js
         middlewares/
             authentication.js
@@ -34,12 +36,14 @@
         models/
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
         routes/
             auth.js
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
 ```

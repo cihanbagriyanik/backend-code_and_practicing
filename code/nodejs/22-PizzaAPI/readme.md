@@ -20,6 +20,7 @@
             auth.js
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
         helpers/
@@ -35,12 +36,14 @@
         models/
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
         routes/
             auth.js
             pizza.js
             order.js
+            token.js
             topping.js
             user.js
 ```
