@@ -55,6 +55,10 @@ app.all("/", (req, res) => {
   });
 });
 
+// pizza:
+app.use("/pizzas", require("./src/routes/pizza"));
+
+// topping:
 app.use("/toppings", require("./src/routes/topping"));
 
 /* ------------------------------------------------------- */

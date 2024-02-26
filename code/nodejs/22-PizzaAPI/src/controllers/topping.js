@@ -1,6 +1,6 @@
 "use strict";
 /* --------------------------------------------------------------------------
-    NODEJS EXPRESS | CLARUSWAY FullStack Team
+    * NODEJS EXPRESS | CLARUSWAY FullStack Team
 ----------------------------------------------------------------------------- */
 //? Require:
 const Topping = require("../models/topping");
