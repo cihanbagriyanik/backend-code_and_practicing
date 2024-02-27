@@ -10,7 +10,7 @@ const passwordEncrypt = require("../helpers/passwordEncrypt");
 // {
 //     "username": "test",
 //     "password": "1234",
-//     "email": "abc@site.com",
+////     "email": "abc@site.com",
 //     "isAdmin": "true"
 // }
 /* -------------------------------------------------------------------------- */
