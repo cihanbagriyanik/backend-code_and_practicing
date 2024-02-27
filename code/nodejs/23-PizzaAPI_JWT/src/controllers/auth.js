@@ -73,6 +73,17 @@ module.exports = {
         #swagger.summary = "Logout"
         #swagger.description = 'Delete token key.'
     */
+
+    const auth = req.headers?.authorization || null; // token ...tokenKey...
+    const tokenKey = auth ? auth.split(" ") : null; // ["Token", "...tokenKey..."]
+
+    const tokenData = await Token.deleteOne({ token: tokenKey[1] });
+
+    res.send({
+      error: false,
+      message: "Logout was OK",
+      data: tokenData,
+    });
   },
 };
 
