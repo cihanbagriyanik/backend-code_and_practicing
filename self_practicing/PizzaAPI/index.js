@@ -7,6 +7,7 @@
     $ npm init -y
     $ npm i express dotenv mongoose express-async-errors morgan
     $ mkdir logs
+    $ npm i jsonwebtoken
     $ nodemon
 */
 /* -------------------------------------------------------------------------- */

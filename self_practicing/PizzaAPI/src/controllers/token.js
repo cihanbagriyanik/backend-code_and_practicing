@@ -46,23 +46,6 @@ module.exports = {
     });
   },
 
-  /* -------------------------------------------------------------------------- */
-  //! /:id -> PUT / PATCH
-  update: async (req, res) => {
-    // #swagger.ignore = true
-
-    const data = await Token.updateOne({ _id: req.params.id }, req.body, {
-      runValidators: true,
-    });
-
-    res.status(202).send({
-      error: false,
-      data,
-      new: await Token.findOne({ _id: req.params.id }),
-    });
-  },
-  /* -------------------------------------------------------------------------- */
-
   //! /:id -> DELETE
   delete: async (req, res) => {
     // #swagger.ignore = true

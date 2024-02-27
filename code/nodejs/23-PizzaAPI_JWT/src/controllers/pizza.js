@@ -57,7 +57,9 @@ module.exports = {
         #swagger.summary = "Get Single Pizza"
     */
 
-    const data = await Pizza.findOne({ _id: req.params.id }).populate("toppings");
+    const data = await Pizza.findOne({ _id: req.params.id }).populate(
+      "toppings"
+    );
 
     res.status(200).send({
       error: false,

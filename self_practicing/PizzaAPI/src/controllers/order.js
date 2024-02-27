@@ -4,6 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Order = require("../models/order");
+const Pizza = require("../models/pizza");
 
 /* -------------------------------------------------------------------------- */
 //? Order Controller:
@@ -24,7 +25,7 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Order);
+    const data = await res.getModelList(Order, ["userId", "pizzaId"]);
 
     res.status(200).send({
       error: false,
@@ -41,6 +42,20 @@ module.exports = {
         #swagger.summary = "Create Order"
     */
 
+    /* -------------------------------------------------------------------------- */
+    //! Logined UserId:
+    req.body.userId = req?.user._id;
+
+    //!  Set default price from Pizza:
+    if (!req.body?.price) {
+      const pizza = await Pizza.findOne({ _id: req.body.pizzaId });
+      req.body.price = pizza.price;
+    }
+
+    //! Calculate total Price:
+    req.body.totalPrice = req.body.quantity * req.body.price;
+    /* -------------------------------------------------------------------------- */
+
     const data = await Order.create(req.body);
 
     res.status(201).send({
@@ -56,7 +71,10 @@ module.exports = {
         #swagger.summary = "Get Single Order"
     */
 
-    const data = await Order.findOne({ _id: req.params.id });
+    const data = await Order.findOne({ _id: req.params.id }).populate([
+      "userId",
+      "pizzaId",
+    ]);
 
     res.status(200).send({
       error: false,

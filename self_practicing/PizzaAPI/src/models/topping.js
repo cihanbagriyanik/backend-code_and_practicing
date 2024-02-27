@@ -21,8 +21,8 @@ const ToppingSchema = new mongoose.Schema(
     },
   },
   {
-    collection: "toppings", // db tane name
-    timestamps: true, // createdAt $ updatedAt
+    collection: "toppings",
+    timestamps: true,
   }
 );
 
