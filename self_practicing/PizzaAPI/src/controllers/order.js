@@ -25,7 +25,11 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Order, ["userId", "pizzaId"]);
+    const data = await res.getModelList(Order, [
+      "userId",
+      "pizzaId",
+      // "toppings",
+    ]);
 
     res.status(200).send({
       error: false,
@@ -74,6 +78,7 @@ module.exports = {
     const data = await Order.findOne({ _id: req.params.id }).populate([
       "userId",
       "pizzaId",
+      // "toppings",
     ]);
 
     res.status(200).send({
