@@ -8,6 +8,8 @@
     $ npm i express dotenv mongoose express-async-errors morgan
     $ mkdir logs
     $ nodemon
+    ------
+    $ npm i jsonwebtoken
 
 */
 const express = require("express");

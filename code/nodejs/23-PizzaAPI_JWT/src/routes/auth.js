@@ -12,6 +12,7 @@ const auth = require("../controllers/auth");
 // URL: /auth
 
 router.post("/login", auth.login);
+router.post("/refresh", auth.refresh);
 // router.all('/logout', auth.logout) // swagger-autogen dont catch.
 router.get("/logout", auth.logout);
 

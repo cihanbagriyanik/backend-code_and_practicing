@@ -70,6 +70,7 @@ module.exports = {
         #swagger.summary = "Get Single Order"
     */
 
+    // Birden fazla populate, array icinde cagirabilir:
     const data = await Order.findOne({ _id: req.params.id }).populate([
       "userId",
       "pizzaId",

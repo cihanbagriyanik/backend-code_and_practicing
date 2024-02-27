@@ -1,14 +1,11 @@
 "use strict";
-/* --------------------------------------------------------------------------
-   * NODEJS EXPRESS | CLARUSWAY FullStack Team
------------------------------------------------------------------------------ */
-// app.use(authentication);
+/* -------------------------------------------------------
+    NODEJS EXPRESS | CLARUSWAY FullStack Team
+------------------------------------------------------- */
+// app.use(authentication)
 
 const Token = require("../models/token");
-
-const User = require("../models/user");
-
-/* -------------------------------------------------------------------------- */
+const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res, next) => {
   // Authorization: Token ...
@@ -17,16 +14,29 @@ module.exports = async (req, res, next) => {
   // Authorization: x-auth-token ...
   // Authorization: Bearer ...
 
-  const auth = req.headers?.authorization || null; // token ...tokenKey...
-  const tokenKey = auth ? auth.split(" ") : null; // ["Token", "...tokenKey..."]
+  const auth = req.headers?.authorization || null; // Token ...tokenKey...
+  const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']
 
-  if (tokenKey && tokenKey[0] == "Token") {
-    const tokenData = await Token.findOne({ token: tokenKey[1] }).populate(
-      "userId"
-    );
-
-    const user = tokenData ? tokenData.userId : undefined;
-    req.user = tokenData ? tokenData.userId : undefined;
+  if (tokenKey) {
+    if (tokenKey[0] == "Token") {
+      // SimpleToken:
+      const tokenData = await Token.findOne({ token: tokenKey[1] }).populate(
+        "userId"
+      );
+      req.user = tokenData ? tokenData.userId : undefined;
+    } else if (tokenKey[0] == "Bearer") {
+      // JWT:
+      jwt.verify(tokenKey[1], process.env.ACCESS_KEY, (error, data) => {
+        if (error) {
+          res.status(401).send({
+            error: true,
+            message: "JWT access token expires.",
+          });
+        }
+        req.user = data;
+      });
+    }
   }
+
   next();
 };
