@@ -48,7 +48,53 @@ app.use(require("./src/middlewares/logger"));
 // res.getModelList:
 app.use(require("./src/middlewares/findSearchSortPage"));
 
-/* ------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+//? Sending E-Mail:
+// $ npm i nodemailer
+const nodemailer = require("nodemailer");
+
+// Create Test (Fake) Email Account:
+// nodemailer.createTestAccount().then((email) => console.log(email));
+/* ********** */
+// {
+//   user: 'vtdrggedgiu7iwgw@ethereal.email',
+//   pass: 'S1n3mWgvyhuccmHeem',
+//   smtp: { host: 'smtp.ethereal.email', port: 587, secure: false },
+//   imap: { host: 'imap.ethereal.email', port: 993, secure: true },
+//   pop3: { host: 'pop3.ethereal.email', port: 995, secure: true },
+//   web: 'https://ethereal.email'
+// }
+/* ********** */
+
+//Connect to mail-server:
+const transporter = nodemailer.createTransport({
+  // SMTP
+  host: "smtp.ethereal.email",
+  port: 587,
+  secure: false, // (Alternatifler) => true, tls, ssl
+  auth: {
+    user: "vtdrggedgiu7iwgw@ethereal.email",
+    pass: "S1n3mWgvyhuccmHeem",
+  },
+});
+// console.log(transporter);
+
+// SendMail:
+transporter.sendMail(
+  {
+    from: "vtdrggedgiu7iwgw@ethereal.email",
+    to: "cihanbagriyanikde@gmail.com", // "a@b.com, b@a.com"
+    subject: "Test Subject",
+    // Message:
+    text: "Hello to myself!",
+    html: "<p><b>Hello</b> to myself!</p>",
+  },
+  (error, success) => {
+    error ? console.log("Error:", error) : console.log("Success:", success);
+  }
+);
+
+/* -------------------------------------------------------------------------- */
 // Routes:
 
 // HomePath:
