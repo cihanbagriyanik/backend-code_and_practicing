@@ -5,6 +5,7 @@
 //? Requaring
 const Order = require("../models/order");
 const Pizza = require("../models/pizza");
+const User = require("../models/user");
 const sendMail = require("../helpers/sendMail");
 
 /* -------------------------------------------------------------------------- */
@@ -62,16 +63,17 @@ module.exports = {
     /* -------------------------------------------------------------------------- */
 
     const data = await Order.create(req.body);
+    const dataUser = await User.findOne(data.userId);
 
     sendMail(
       // to:
-      data.email,
+      dataUser.email,
       // subject:
       "Thank you for your order",
       // Message:
       `
           <h1>Welcome to Pizza API</h1>
-          <p>Dear <b>${data.username}</b>, we will deliver you pizza in 30 min.</p>
+          <p>Dear <b>${dataUser.username}</b>, we will deliver you pizza in 30 min.</p>
       `
     );
 

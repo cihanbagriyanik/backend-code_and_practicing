@@ -27,7 +27,8 @@ module.exports = function (to, subject, message) {
       html: message,
     },
     (error, success) => {
-      error ? console.log("Error:", error) : console.log("Success:", success);
+      // error ? console.log("Error:", error) : console.log("Success:", success);
+      error ? error : success;
     }
   );
 };
