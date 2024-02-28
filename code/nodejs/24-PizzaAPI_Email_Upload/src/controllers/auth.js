@@ -102,66 +102,62 @@ module.exports = {
 
   refresh: async (req, res) => {
     /*
-      #swagger.tags = ['Authentication']
-      #swagger.summary = 'JWT: Refresh'
-      #swagger.description = 'Refresh accessToken with refreshToken'
-      #swagger.parameters['body'] = {
-          in: 'body',
-          required: true,
-          schema: {
-              bearer: {
-                  refresh: '...refreshToken...'
-              }
-          }
-      }
+        #swagger.tags = ['Authentication']
+        #swagger.summary = 'JWT: Refresh'
+        #swagger.description = 'Refresh accessToken with refreshToken'
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                bearer: {
+                    refresh: '...refreshToken...'
+                }
+            }
+        }
     */
 
     const refreshToken = req.body?.bearer?.refresh;
 
     if (refreshToken) {
-      jwt.verify(
-        refreshToken,
-        process.env.REFRESH_KEY,
-        async function (error, data) {
-          if (error) {
-            res.errorStatusCode = 401;
-            throw error;
-          } else {
-            const { id, password } = data;
+      const jwtData = await jwt.verify(refreshToken, process.env.REFRESH_KEY);
 
-            if (id && password) {
-              const user = await User.findOne({ _id: id });
+      if (jwtData) {
+        const { id, password } = jwtData;
 
-              if (user && user.password == password) {
-                if (user.isActive) {
-                  // JWT Access Token:
-                  const accessToken = jwt.sign(
-                    user.toJSON(),
-                    process.env.ACCESS_KEY,
-                    { expiresIn: "30m" }
-                  );
+        if (id && password) {
+          const user = await User.findOne({ _id: id });
 
-                  res.status(200).send({
-                    error: false,
-                    bearer: {
-                      access: accessToken,
-                    },
-                  });
-                } else {
-                  res.errorStatusCode = 401;
-                  throw new Error("This account is not active.");
-                }
-              } else {
-                res.errorStatusCode = 401;
-                throw new Error("Wrong id or password.");
-              }
+          if (user && user.password == password) {
+            if (user.isActive) {
+              // JWT AccessToken:
+              const accessToken = jwt.sign(
+                user.toJSON(),
+                process.env.ACCESS_KEY,
+                { expiresIn: "30m" }
+              );
+
+              res.status(200).send({
+                error: false,
+                bearer: {
+                  access: accessToken,
+                },
+              });
             } else {
               res.errorStatusCode = 401;
-              throw new Error("There is not id and password in refreshToken.");
+              throw new Error("This account is not active.");
             }
+          } else {
+            res.errorStatusCode = 401;
+            throw new Error("Wrong id or password.");
           }
+        } else {
+          res.errorStatusCode = 401;
+          throw new Error("There is not id and password in refreshToken.");
         }
-      );
+      } else {
+        res.errorStatusCode = 401;
+        throw new Error("sa");
+      }
     } else {
       res.errorStatusCode = 401;
       throw new Error("Please enter token.refresh");

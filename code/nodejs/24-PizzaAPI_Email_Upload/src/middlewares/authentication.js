@@ -27,12 +27,22 @@ module.exports = async (req, res, next) => {
     } else if (tokenKey[0] == "Bearer") {
       // JWT:
       jwt.verify(tokenKey[1], process.env.ACCESS_KEY, (error, data) => {
-        if (error) {
-          res.status(401).send({
-            error: true,
-            message: "JWT access token expires.",
-          });
-        }
+        // if (error) {
+        //     res.status(401).send({
+        //         error: true,
+        //         message: 'JWT accessToken expires.'
+        //     })
+        // } else {
+        //     req.user = data
+        // }
+        //? Hata gösterimi var ama console.log gösterme:
+        // if (data) {
+        //     req.user = data
+        // } else {
+        //     res.errorStatusCode = 401
+        //     throw error
+        // }
+        // //? Hata gösterimi yok:
         req.user = data;
       });
     }
