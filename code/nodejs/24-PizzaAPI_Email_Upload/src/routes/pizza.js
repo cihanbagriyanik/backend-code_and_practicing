@@ -42,8 +42,8 @@ router
 router
   .route("/:id")
   .get(pizza.read) // AllowAny
-  .put(permissions.isAdmin, upload.array("image"), pizza.update)
-  .patch(permissions.isAdmin, upload.array("image"), pizza.update)
+  .put(permissions.isAdmin, upload.single("image"), pizza.update)
+  .patch(permissions.isAdmin, upload.single("image"), pizza.update)
   .delete(permissions.isAdmin, pizza.delete);
 
 /* -------------------------------------------------------------------------- */
