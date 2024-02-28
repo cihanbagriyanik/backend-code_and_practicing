@@ -1,6 +1,6 @@
 "use strict";
 /* --------------------------------------------------------------------------
-   * NODEJS EXPRESS | CLARUSWAY FullStack Team
+   * NODEJS EXPRESS | PizzaAPI
 ----------------------------------------------------------------------------- */
 
 // app.use(authentication);
@@ -31,12 +31,6 @@ module.exports = async (req, res, next) => {
     } else if (tokenKey[0] == "Bearer") {
       // JWT:
       jwt.verify(tokenKey[1], process.env.ACCESS_KEY, (error, data) => {
-        if (error) {
-          res.status(401).send({
-            error: true,
-            message: "JWT access token expires.",
-          });
-        }
         req.user = data;
       });
     }

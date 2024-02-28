@@ -1,6 +1,6 @@
 "use strict";
 /* --------------------------------------------------------------------------
-    * NODEJS EXPRESS | CLARUSWAY FullStack Team
+    * NODEJS EXPRESS | PizzaAPI
 ----------------------------------------------------------------------------- */
 //? Requaring
 const { mongoose } = require("../configs/dbConnection");
@@ -10,7 +10,7 @@ const passwordEncrypt = require("../helpers/passwordEncrypt");
 // {
 //     "username": "test",
 //     "password": "1234",
-////     "email": "abc@site.com",
+//     "email": "abc@site.com",
 //     "isAdmin": "true"
 // }
 /* -------------------------------------------------------------------------- */
@@ -29,6 +29,13 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       required: true,
       set: (password) => passwordEncrypt(password),
+    },
+
+    email: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
     },
 
     isActive: {

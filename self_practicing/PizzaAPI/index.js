@@ -1,13 +1,12 @@
 "use strict";
 /* --------------------------------------------------------------------------
-    * NODEJS EXPRESS | CLARUSWAY FullStack Team
+    * NODEJS EXPRESS | PizzaAPI
 ----------------------------------------------------------------------------- */
 /*
     $ cp .env-sample .env
     $ npm init -y
-    $ npm i express dotenv mongoose express-async-errors morgan
+    $ npm i express dotenv mongoose express-async-errors morgan jsonwebtoken swagger-autogen swagger-ui-express redoc-express
     $ mkdir logs
-    $ npm i jsonwebtoken
     $ nodemon
 */
 /* -------------------------------------------------------------------------- */
@@ -46,13 +45,17 @@ app.use(require("./src/middlewares/findSearchSortPage"));
 
 /* -------------------------------------------------------------------------- */
 //? Routes:
-
 // HomePath:
 app.all("/", (req, res) => {
   res.send({
     error: false,
     message: "Welcome to PIZZA API",
     isLogin: req.isLogin,
+    documents: {
+      swagger: "/documents/swagger",
+      redoc: "/documents/redoc",
+      json: "/documents/json",
+    },
     user: req.user,
   });
 });
@@ -69,6 +72,8 @@ app.use("/orders", require("./src/routes/order"));
 app.use("/pizzas", require("./src/routes/pizza"));
 // topping:
 app.use("/toppings", require("./src/routes/topping"));
+// document:
+app.use("/documents", require("./src/routes/document"));
 
 /* -------------------------------------------------------------------------- */
 //? errorHandler:

@@ -1,6 +1,6 @@
 "use strict";
 /* --------------------------------------------------------------------------
-    * NODEJS EXPRESS | CLARUSWAY FullStack Team
+    * NODEJS EXPRESS | PizzaAPI
 ----------------------------------------------------------------------------- */
 //? Requaring
 const Topping = require("../models/topping");
