@@ -6,6 +6,8 @@
 /* -------------------------------------------------------------------------- */
 module.exports = {
   isLogin: async (req, res, next) => {
+    return next(); // Disabled
+
     if (req.user && req.user.isActive) {
       next();
     } else {
@@ -15,6 +17,8 @@ module.exports = {
   },
 
   isAdmin: async (req, res, next) => {
+    return next(); // Disabled
+
     if (req.user && req.user.isActive && req.user.isAdmin) {
       next();
     } else {

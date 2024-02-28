@@ -11,6 +11,9 @@
     ------
     $ npm i jsonwebtoken
     $ npm i swagger-autogen swagger-ui-express redoc-express
+    ------
+    $ npm i nodemailer
+    $ npm i multer
 
 */
 const express = require("express");
@@ -51,7 +54,7 @@ app.use(require("./src/middlewares/findSearchSortPage"));
 /* -------------------------------------------------------------------------- */
 //? Sending E-Mail:
 // $ npm i nodemailer
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 // Create Test (Fake) Email Account:
 // nodemailer.createTestAccount().then((email) => console.log(email));
@@ -67,6 +70,7 @@ const nodemailer = require("nodemailer");
 /* ********** */
 
 //Connect to mail-server:
+/*
 const transporter = nodemailer.createTransport({
   // SMTP
   host: "smtp.ethereal.email",
@@ -78,8 +82,10 @@ const transporter = nodemailer.createTransport({
   },
 });
 // console.log(transporter);
+*/
 
 // SendMail:
+/*
 transporter.sendMail(
   {
     from: "vtdrggedgiu7iwgw@ethereal.email",
@@ -93,6 +99,39 @@ transporter.sendMail(
     error ? console.log("Error:", error) : console.log("Success:", success);
   }
 );
+*/
+
+// //? GoogleMail (gmail):
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   auth: {
+//     user: "cihanbagriyanikde@gmail.com",
+//     pass: "lgriawxlsgxcuabt",
+//   },
+// });
+// console.log(transporter);
+// //? YandexMail (yandex):
+// const transporter = nodemailer.createTransport({
+//     service: 'Yandex',
+//     auth: {
+//         user: 'username@yandex.com',
+//         pass: 'password' // your emailPassword
+//     }
+// })
+
+// transporter.sendMail(
+//   {
+//     // from: "cihanbagriyanikde@gmail.com", // NOT MUST
+//     to: "cihanbagriyanikde@gmail.com",
+//     subject: "Test Subject",
+//     // Message:
+//     text: "Hello to myself!",
+//     html: "<p><b>Hello</b> to myself!</p>",
+//   },
+//   (error, success) => {
+//     error ? console.log("Error:", error) : console.log("Success:", success);
+//   }
+// );
 
 /* -------------------------------------------------------------------------- */
 // Routes:
