@@ -5,6 +5,7 @@
 //? Requaring
 const Order = require("../models/order");
 const Pizza = require("../models/pizza");
+const sendMail = require("../helpers/sendMail");
 
 /* -------------------------------------------------------------------------- */
 //? Order Controller:
@@ -61,6 +62,18 @@ module.exports = {
     /* -------------------------------------------------------------------------- */
 
     const data = await Order.create(req.body);
+
+    sendMail(
+      // to:
+      data.email,
+      // subject:
+      "Thank you for your order",
+      // Message:
+      `
+          <h1>Welcome to Pizza API</h1>
+          <p>Dear <b>${data.username}</b>, we will deliver you pizza in 30 min.</p>
+      `
+    );
 
     res.status(201).send({
       error: false,

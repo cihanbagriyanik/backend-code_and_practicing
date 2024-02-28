@@ -4,6 +4,7 @@
 ----------------------------------------------------------------------------- */
 //? Requaring
 const User = require("../models/user");
+const sendMail = require("../helpers/sendMail");
 
 /* -------------------------------------------------------------------------- */
 //? User Controller:
@@ -42,6 +43,18 @@ module.exports = {
     */
 
     const data = await User.create(req.body);
+
+    sendMail(
+      // to:
+      data.email,
+      // subject:
+      "Welcome",
+      // Message:
+      `
+          <h1>Welcome to Pizza API</h1>
+          <p>Dear <b>${data.username}</b>, you can order your pizza now!</p>
+      `
+    );
 
     res.status(201).send({
       error: false,
