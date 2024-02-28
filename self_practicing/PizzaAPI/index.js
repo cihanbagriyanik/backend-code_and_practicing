@@ -5,12 +5,9 @@
 /*
     $ cp .env-sample .env
     $ npm init -y
-    $ npm i express dotenv mongoose express-async-errors morgan jsonwebtoken swagger-autogen swagger-ui-express redoc-express
+    $ npm i express dotenv mongoose express-async-errors morgan jsonwebtoken swagger-autogen swagger-ui-express redoc-express nodemailer
     $ mkdir logs
     $ nodemon
-    ---------
-    $ npm i nodemailer
-    $ npm i multer
 */
 /* -------------------------------------------------------------------------- */
 //? Required Modules:
