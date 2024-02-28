@@ -1,15 +1,19 @@
 "use strict";
-/* --------------------------------------------------------------------------
+/* -------------------------------------------------------------------------
     * NODEJS EXPRESS | CLARUSWAY FullStack Team
+---------------------------------------------------------------------------- */
+
+"use strict";
+/* --------------------------------------------------------------------------
+    NODEJS EXPRESS | CLARUSWAY FullStack Team
 ----------------------------------------------------------------------------- */
-//? Requaring
+//? Require:
 const Order = require("../models/order");
 const Pizza = require("../models/pizza");
 
 /* -------------------------------------------------------------------------- */
 //? Order Controller:
 module.exports = {
-  //! GET
   list: async (req, res) => {
     /*
         #swagger.tags = ["Orders"]
@@ -25,11 +29,7 @@ module.exports = {
         `
     */
 
-    const data = await res.getModelList(Order, [
-      "userId",
-      "pizzaId",
-      // "toppings", //! *******************/
-    ]);
+    const data = await res.getModelList(Order, ["userId", "pizzaId"]);
 
     res.status(200).send({
       error: false,
@@ -38,8 +38,6 @@ module.exports = {
     });
   },
 
-  //* CRUD Processes:
-  //! POST
   create: async (req, res) => {
     /*
         #swagger.tags = ["Orders"]
@@ -47,16 +45,14 @@ module.exports = {
     */
 
     /* -------------------------------------------------------------------------- */
-    //! Logined UserId:
+    //Logined UserId:
     req.body.userId = req?.user._id;
-
-    //!  Set default price from Pizza:
+    // Set default price from Pizza:
     if (!req.body?.price) {
       const pizza = await Pizza.findOne({ _id: req.body.pizzaId });
       req.body.price = pizza.price;
     }
-
-    //! Calculate total Price:
+    // Calculate total Price:
     req.body.totalPrice = req.body.quantity * req.body.price;
     /* -------------------------------------------------------------------------- */
 
@@ -68,17 +64,16 @@ module.exports = {
     });
   },
 
-  //! /:id -> GET
   read: async (req, res) => {
     /*
         #swagger.tags = ["Orders"]
         #swagger.summary = "Get Single Order"
     */
 
+    // Birden fazla populate, array icinde cagirabilir:
     const data = await Order.findOne({ _id: req.params.id }).populate([
       "userId",
       "pizzaId",
-      // "toppings", //! *******************/
     ]);
 
     res.status(200).send({
@@ -87,7 +82,6 @@ module.exports = {
     });
   },
 
-  //! /:id -> PUT / PATCH
   update: async (req, res) => {
     /*
         #swagger.tags = ["Orders"]
@@ -105,7 +99,6 @@ module.exports = {
     });
   },
 
-  //! /:id -> DELETE
   delete: async (req, res) => {
     /*
         #swagger.tags = ["Orders"]
@@ -115,8 +108,11 @@ module.exports = {
     const data = await Order.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
+      //   error: false,
+      //   error: data.deletedCount ? false : true,
       error: !data.deletedCount,
       data,
     });
   },
 };
+/* -------------------------------------------------------------------------- */
