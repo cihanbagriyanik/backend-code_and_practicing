@@ -6,9 +6,7 @@
 const router = require("express").Router();
 
 /* -------------------------------------------------------------------------- */
-// routes/document:
-
-// URL: /documents
+//! URL: /documents
 
 router.all("/", (req, res) => {
   res.send({
@@ -18,16 +16,16 @@ router.all("/", (req, res) => {
   });
 });
 
-// JSON:
+//? JSON:
 router.use("/json", (req, res) => {
   res.sendFile(`/src/configs/swagger.json`, { root: "." });
 });
 
-// Redoc:
+//? Redoc:
 const redoc = require("redoc-express");
 router.use("/redoc", redoc({ specUrl: "/documents/json", title: "API Docs" }));
 
-// Swagger:
+//? Swagger:
 const swaggerUi = require("swagger-ui-express");
 router.use(
   "/swagger",

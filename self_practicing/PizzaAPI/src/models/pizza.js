@@ -7,7 +7,7 @@ const { mongoose } = require("../configs/dbConnection");
 /* -------------------------------------------------------------------------- */
 // {
 //     "name": "Pizza Margarita",
-//     "price": 124.99,
+//     "price": 14.99,
 //     "toppings": [
 //       "652d71b9c31f8eecbf12519b",
 //       "652d71bcc31f8eecbf12519d",

@@ -27,8 +27,8 @@ module.exports = {
 
     const data = await res.getModelList(Order, [
       "userId",
-      "pizzaId",
-      // "toppings", //! *******************/
+      // "pizzaId",
+      { path: "pizzaId", populate: "toppings" },
     ]);
 
     res.status(200).send({
@@ -77,8 +77,8 @@ module.exports = {
 
     const data = await Order.findOne({ _id: req.params.id }).populate([
       "userId",
-      "pizzaId",
-      // "toppings", //! *******************/
+      // "pizzaId",
+      { path: "pizzaId", populate: "toppings" },
     ]);
 
     res.status(200).send({

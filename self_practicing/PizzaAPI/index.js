@@ -8,6 +8,9 @@
     $ npm i express dotenv mongoose express-async-errors morgan jsonwebtoken swagger-autogen swagger-ui-express redoc-express
     $ mkdir logs
     $ nodemon
+    ---------
+    $ npm i nodemailer
+    $ npm i multer
 */
 /* -------------------------------------------------------------------------- */
 //? Required Modules:
