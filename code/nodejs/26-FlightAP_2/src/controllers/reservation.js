@@ -5,6 +5,8 @@
 // Reservation Controller:
 
 const Reservation = require("../models/reservation");
+const Passenger = require("../models/passenger");
+const passenger = require("../models/passenger");
 
 module.exports = {
   list: async (req, res) => {
@@ -21,7 +23,14 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Reservation);
+    const data = await res.getModelList(Reservation, [
+      // "createdId",
+      // createdId populate yap; User modelinden sadece "username ve email" verilerini getir
+      { path: "createdId", select: "username email" },
+      //"Passengers"
+      // passengers populate yaparken hangi modelden veri gelecek:
+      { path: "passengers", model: "Passenger" },
+    ]);
 
     res.status(200).send({
       error: false,
@@ -52,6 +61,42 @@ module.exports = {
         req.body.isAdmin=false
         */
 
+    //! -------------------------------------------------------------------------- */
+    //* -------------------------------------------------------------------------- */
+    //todo set createdId from logined user:
+    req.body.createdId = req.user._id;
+
+    /* -------------------------------------------------------------------------- */
+    //todo Check ID or OBJECT for Passengers
+    let passengerInfos = req.body?.passengers || [],
+      passengerIds = [];
+    passenger = false;
+
+    for (let passengerInfo of passengerInfos) {
+      if (typeof passengerInfo == "object") {
+        passenger = Passenger.findOne({ email: passengerInfo.email });
+
+        if (!passenger) {
+          passengerInfo.createdId = req.user._id;
+          passenger = await Passenger.create(passengerInfo);
+        }
+
+        // if (passenger) passengerIds.push(passenger._id);
+      } else {
+        passenger = await Passenger.findOne({ _id: passengerInfo });
+
+        // if (passenger) passengerIds.push(passenger._id);
+      }
+
+      if (passenger) passengerIds.push(passenger._id);
+    }
+    req.body.passengers = passengerIds;
+    //todo Check ID or OBJECT for Passengers
+    /* -------------------------------------------------------------------------- */
+
+    //* -------------------------------------------------------------------------- */
+    //! -------------------------------------------------------------------------- */
+
     const data = await Reservation.create(req.body);
 
     res.status(201).send({
@@ -66,7 +111,14 @@ module.exports = {
             #swagger.summary = "Get Single Reservation"
         */
 
-    const data = await Reservation.findOne({ _id: req.params.id });
+    const data = await Reservation.findOne({ _id: req.params.id }).populate([
+      // "createdId",
+      // createdId populate yap; User modelinden sadece "username ve email" verilerini getir
+      { path: "createdId", select: "username email" },
+      //"Passengers"
+      // passengers populate yaparken hangi modelden veri gelecek:
+      { path: "passengers", model: "Passenger" },
+    ]);
 
     res.status(200).send({
       error: false,
