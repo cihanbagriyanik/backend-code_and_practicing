@@ -46,7 +46,16 @@ module.exports = {
                     "isAdmin": false,
                 }
             }
-        */
+    */
+
+    //* -------------------------------------------------------------------------- */
+    // set createdId from logged in users:
+    req.body.createdId = req.user.id;
+
+    
+
+    //* -------------------------------------------------------------------------- */
+
     const data = await Passenger.create(req.body);
 
     res.status(201).send({
