@@ -11,16 +11,6 @@ const user = require("../controllers/user");
 
 // URL: /users
 
-// router.route('/')
-//     .get(permissions.isAdmin, user.list)
-//     .post(user.create)
-
-// router.route('/:id')
-//     .get(permissions.isLogin, user.read)
-//     .put(permissions.isLogin, user.update)
-//     .patch(permissions.isLogin, user.update)
-//     .delete(permissions.isAdmin, user.delete)
-
 router
   .route("/")
   .get(permissions.isAdmin, user.list)
@@ -28,9 +18,9 @@ router
 
 router
   .route("/:id")
-  .get(user.read)
-  .put(permissions.isStaffOrisAdmin, user.update)
-  .patch(permissions.isStaffOrisAdmin, user.update)
+  .get(permissions.isLogin, user.read)
+  .put(permissions.isLogin, user.update)
+  .patch(permissions.isLogin, user.update)
   .delete(permissions.isStaffOrisAdmin, user.delete);
 
 /* ------------------------------------------------------- */
