@@ -59,6 +59,8 @@ app.all("/", (req, res) => {
 app.use("/auth", require("./src/routes/auth"));
 // user:
 app.use("/users", require("./src/routes/user"));
+// token:
+app.use("/tokens", require("./src/routes/token"));
 // flight:
 app.use("/flights", require("./src/routes/flight"));
 // passenger:

@@ -1,17 +1,33 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
-// $ npm i jsonwebtoken
-// app.use(authentication):
+// app.use(authentication)
 
-const jwt = require('jsonwebtoken')
+const Token = require("../models/token");
+const jwt = require("jsonwebtoken");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
+  const auth = req.headers?.authorization || null; // Token ...tokenKey...
+  const tokenKey = auth ? auth.split(" ") : null; // ['Token', '...tokenKey...']
 
-    const auth = req.headers?.authorization || null
-    const accessToken = auth ? auth.split(' ')[1] : null
+  if (tokenKey) {
+    if (tokenKey[0] == "Token") {
+      // SimpleToken:
 
-    jwt.verify(accessToken, process.env.ACCESS_KEY, (err, userData) => req.user = userData)
-    next()
-}
+      const tokenData = await Token.findOne({ token: tokenKey[1] }).populate(
+        "userId"
+      );
+      req.user = tokenData ? tokenData.userId : undefined;
+    } else if (tokenKey[0] == "Bearer") {
+      // JWT:
+
+      jwt.verify(tokenKey[1], process.env.ACCESS_KEY, (error, data) => {
+        // //? Hata gösterimi yok:
+        req.user = data;
+      });
+    }
+  }
+
+  next();
+};
