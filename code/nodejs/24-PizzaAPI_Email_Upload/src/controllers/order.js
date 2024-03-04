@@ -28,8 +28,12 @@ module.exports = {
             </ul>
         `
     */
+    let filter = {};
+    if (!req.user.isAdmin) {
+      filter = { userId: req.user.id };
+    }
 
-    const data = await res.getModelList(Order, [
+    const data = await res.getModelList(Order, filter, [
       "userId",
       // "pizzaId"
       { path: "pizzaId", populate: "toppings" },
@@ -37,7 +41,7 @@ module.exports = {
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Order),
+      details: await res.getModelListDetails(Order, filter),
       data,
     });
   },
