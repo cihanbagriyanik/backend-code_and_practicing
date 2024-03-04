@@ -9,19 +9,19 @@ const Passenger = require("../models/passenger");
 module.exports = {
   list: async (req, res) => {
     /*
-            #swagger.tags = ["Passengers"]
-            #swagger.summary = "List Passengers"
-            #swagger.description = `
-                You can send query with endpoint for search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
-            `
-        */
+        #swagger.tags = ["Passengers"]
+        #swagger.summary = "List Passengers"
+        #swagger.description = `
+            You can send query with endpoint for search[], sort[], page and limit.
+            <ul> Examples:
+                <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+                <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+                <li>URL/?<b>page=2&limit=1</b></li>
+            </ul>
+        `
+    */
 
-    const data = await res.getModelList(Passenger);
+    const data = await res.getModelList(Passenger, "createdId");
 
     res.status(200).send({
       error: false,
@@ -32,29 +32,30 @@ module.exports = {
 
   create: async (req, res) => {
     /*
-            #swagger.tags = ["Passengers"]
-            #swagger.summary = "Create Passenger"
-            #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
-                    "username": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "isActive": true,
-                    "isStaff": false,
-                    "isAdmin": false,
-                }
+        #swagger.tags = ["Passengers"]
+        #swagger.summary = "Create Passenger"
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                "username": "test",
+                "password": "1234",
+                "email": "test@site.com",
+                "isActive": true,
+                "isStaff": false,
+                "isAdmin": false,
             }
+        }
     */
 
+    //! -------------------------------------------------------------------------- */
+    //! Flight API 2
     //* -------------------------------------------------------------------------- */
     // set createdId from logged in users:
     req.body.createdId = req.user.id;
 
-    
-
     //* -------------------------------------------------------------------------- */
+    //! -------------------------------------------------------------------------- */
 
     const data = await Passenger.create(req.body);
 
@@ -70,7 +71,9 @@ module.exports = {
             #swagger.summary = "Get Single Passenger"
         */
 
-    const data = await Passenger.findOne({ _id: req.params.id });
+    const data = await Passenger.findOne({ _id: req.params.id }).populate(
+      "createdId"
+    );
 
     res.status(200).send({
       error: false,

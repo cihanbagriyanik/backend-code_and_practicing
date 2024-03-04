@@ -72,6 +72,8 @@ const FlightSchema = new mongoose.Schema(
 /* -------------------------------------------------------------------------- */
 // mongoose middleware
 const dateToLocaleString = require("../helpers/dateToLocaleString");
+
+//! veriyi cikti vermeden hemen once manipulasyon:
 // pre ,init, pre save,postsave ...
 FlightSchema.pre("init", function (document) {
   // document.extra="deneme"

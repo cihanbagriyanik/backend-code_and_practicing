@@ -21,7 +21,7 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Flight);
+    const data = await res.getModelList(Flight, "createdId");
 
     res.status(200).send({
       error: false,
@@ -32,25 +32,36 @@ module.exports = {
 
   create: async (req, res) => {
     /*
-            #swagger.tags = ["Flights"]
-            #swagger.summary = "Create Flight"
-            #swagger.parameters['body'] = {
-                in: 'body',
-                required: true,
-                schema: {
-                    "Flightname": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "isActive": true,
-                    "isStaff": false,
-                    "isAdmin": false,
-                }
+        #swagger.tags = ["Flights"]
+        #swagger.summary = "Create Flight"
+        #swagger.parameters['body'] = {
+            in: 'body',
+            required: true,
+            schema: {
+                "Flightname": "test",
+                "password": "1234",
+                "email": "test@site.com",
+                "isActive": true,
+                "isStaff": false,
+                "isAdmin": false,
             }
-        */
+        }
+    */
+
     /* EĞER login olan kullanıcı admin değilse post işleminde yetkileri false  
         req.body.isStaff=false
         req.body.isAdmin=false
-        */
+    */
+
+    //! -------------------------------------------------------------------------- */
+    //! Flight API 2
+    //* -------------------------------------------------------------------------- */
+    // set createdId from logged in users:
+    req.body.createdId = req.user.id;
+
+    //* -------------------------------------------------------------------------- */
+    //! -------------------------------------------------------------------------- */
+
     const data = await Flight.create(req.body);
 
     res.status(201).send({
@@ -65,7 +76,9 @@ module.exports = {
             #swagger.summary = "Get Single Flight"
         */
 
-    const data = await Flight.findOne({ _id: req.params.id });
+    const data = await Flight.findOne({ _id: req.params.id }).populate(
+      "createdId"
+    );
 
     res.status(200).send({
       error: false,
