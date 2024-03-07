@@ -20,11 +20,16 @@ module.exports = {
             `
         */
 
-    const data = await res.getModelList(Car);
+    // Filters:
+    let filters = {};
+
+    if (!req.user.isAdmin) filters.inPublish = true;
+
+    const data = await res.getModelList(Car, filters);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Car),
+      details: await res.getModelListDetails(Car, filters),
       data,
     });
   },
