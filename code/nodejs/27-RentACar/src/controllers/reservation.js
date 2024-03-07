@@ -18,13 +18,14 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(Reservation);
+    const data = await res.getModelList(Reservation, {}, ["userId", "carId"]);
     res.status(200).send({
       error: false,
       details: await res.getModelListDetails(Reservation),
       data,
     });
   },
+
   // CRUD
   create: async (req, res) => {
     /*
@@ -48,12 +49,16 @@ module.exports = {
             #swagger.tags = ["Reservations"]
             #swagger.summary = "Get Single Reservation"
         */
-    const data = await Reservation.findOne({ _id: req.params.id });
+    const data = await Reservation.findOne({ _id: req.params.id }).populate([
+      "userId",
+      "carId",
+    ]);
     res.status(200).send({
       error: false,
       data,
     });
   },
+
   update: async (req, res) => {
     /*
             #swagger.tags = ["Reservations"]
@@ -74,6 +79,7 @@ module.exports = {
       new: await Reservation.findOne({ _id: req.params.id }),
     });
   },
+
   delete: async (req, res) => {
     /*
             #swagger.tags = ["Reservations"]

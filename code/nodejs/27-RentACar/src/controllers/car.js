@@ -4,6 +4,7 @@
 ------------------------------------------------------- */
 // Car Controller:
 const Car = require("../models/car");
+const Reservation = require("../models/reservation");
 
 module.exports = {
   list: async (req, res) => {
@@ -23,8 +24,41 @@ module.exports = {
     // Filters:
     let filters = {};
 
-    if (!req.user.isAdmin) filters.inPublish = true;
+    if (!req.user?.isAdmin) filters.isPublish = true;
 
+    // List with date filter:
+    // http://127.0.0.1:8000/cars?start=2023-10-13&end=2023-10-18
+
+    const { start: getStartDate, end: getEndDate } = req.query;
+
+    if (getStartDate && getEndDate) {
+      const reservedCars = await Reservation.find(
+        {
+          $nor: [
+            { startDate: { $gt: getEndDate } }, // rezervasyon tablosundaki başlangıç tarihi ile rezerve edilmek istenen müşteri tarihinden büyük olanlar
+            { endDate: { $lt: getStartDate } }, // rezervasyon tarihinin bitiş tarihi rezerve edilmek istenen müşteri tarihinden küçük olanlar
+          ],
+        },
+        { _id: 0, carId: 1 }
+      ).distinct("carId");
+      /*
+    distinct() convert from:
+    [
+        { carId: new ObjectId("65352f518a9ea121b1ca5001") },
+        { carId: new ObjectId("65352f518a9ea121b1ca5002") }   
+    ]
+    to:
+    [
+        new ObjectId("65352f518a9ea121b1ca5001"),
+        new ObjectId("65352f518a9ea121b1ca5002")
+    ]
+
+    */
+      if (reservedCars.length) {
+        filters._id = { $nin: reservedCars };
+      }
+      // console.log(filters)
+    }
     const data = await res.getModelList(Car, filters);
 
     res.status(200).send({
