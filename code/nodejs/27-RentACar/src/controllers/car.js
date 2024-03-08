@@ -3,8 +3,8 @@
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
 // Car Controller:
+
 const Car = require("../models/car");
-const Reservation = require("../models/reservation");
 
 module.exports = {
   list: async (req, res) => {
@@ -21,67 +21,25 @@ module.exports = {
             `
         */
 
-    // Filters:
-    let filters = {};
-
-    if (!req.user?.isAdmin) filters.isPublish = true;
-
-    // List with date filter:
-    // http://127.0.0.1:8000/cars?start=2023-10-13&end=2023-10-18
-
-    const { start: getStartDate, end: getEndDate } = req.query;
-
-    if (getStartDate && getEndDate) {
-      const reservedCars = await Reservation.find(
-        {
-          $nor: [
-            { startDate: { $gt: getEndDate } }, // rezervasyon tablosundaki başlangıç tarihi ile rezerve edilmek istenen müşteri tarihinden büyük olanlar
-            { endDate: { $lt: getStartDate } }, // rezervasyon tarihinin bitiş tarihi rezerve edilmek istenen müşteri tarihinden küçük olanlar
-          ],
-        },
-        { _id: 0, carId: 1 }
-      ).distinct("carId");
-      /*
-    distinct() convert from:
-    [
-        { carId: new ObjectId("65352f518a9ea121b1ca5001") },
-        { carId: new ObjectId("65352f518a9ea121b1ca5002") }   
-    ]
-    to:
-    [
-        new ObjectId("65352f518a9ea121b1ca5001"),
-        new ObjectId("65352f518a9ea121b1ca5002")
-    ]
-
-    */
-      if (reservedCars.length) {
-        filters._id = { $nin: reservedCars };
-      }
-      // console.log(filters)
-    }
-    const data = await res.getModelList(Car, filters);
+    const data = await res.getModelList(Car);
 
     res.status(200).send({
       error: false,
-      details: await res.getModelListDetails(Car, filters),
+      details: await res.getModelListDetails(Car),
       data,
     });
   },
 
+  // CRUD:
+
   create: async (req, res) => {
     /*
             #swagger.tags = ["Cars"]
-            #swagger.summary = "Create Cars"
+            #swagger.summary = "Create Car"
             #swagger.parameters['body'] = {
                 in: 'body',
                 required: true,
                 schema: {
-                    "plateNumber": "34ABC123",
-                    "brand": "Ford",
-                    "model": "Focus",
-                    "year": 2020,
-                    "isAutomatic": true,
-                    "pricePerDay": 249.99
                 }
             }
         */
@@ -100,7 +58,7 @@ module.exports = {
             #swagger.summary = "Get Single Car"
         */
 
-    const data = await Car.findOne({ _id: id });
+    const data = await Car.findOne({ _id: req.params.id });
 
     res.status(200).send({
       error: false,
@@ -116,12 +74,6 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
-                    "plateNumber": "34ABC123",
-                    "brand": "Ford",
-                    "model": "Focus",
-                    "year": 2020,
-                    "isAutomatic": true,
-                    "pricePerDay": 249.99
                 }
             }
         */
@@ -130,7 +82,7 @@ module.exports = {
       runValidators: true,
     });
 
-    res.status(202).send({
+    res.status(200).send({
       error: false,
       data,
       new: await Car.findOne({ _id: req.params.id }),
