@@ -37,18 +37,12 @@ module.exports = {
 
     create: async (req, res) => {
         /*
-            #swagger.tags = ["Categorys"]
+            #swagger.tags = ["Categories"]
             #swagger.summary = "Create Category"
             #swagger.parameters['body'] = {
                 in: 'body',
                 required: true,
-                schema: {
-                    "Categoryname": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "first_name": "test",
-                    "last_name": "test",
-                }
+                schema: { $ref: '#/definitions/Category' }
             }
         */
         const data=await Category.create(req.body)
@@ -75,18 +69,12 @@ module.exports = {
 
     update: async (req, res) => {
         /*
-            #swagger.tags = ["Categorys"]
+            #swagger.tags = ["Categories"]
             #swagger.summary = "Update Category"
             #swagger.parameters['body'] = {
                 in: 'body',
                 required: true,
-                schema: {
-                    "Categoryname": "test",
-                    "password": "1234",
-                    "email": "test@site.com",
-                    "first_name": "test",
-                    "last_name": "test",
-                }
+                schema: { $ref: '#/definitions/Category' }
             }
         */
         const data=await Category.updateOne({_id:req.params.id},req.body,{ runValidators:true})
