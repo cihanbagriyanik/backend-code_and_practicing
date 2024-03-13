@@ -16,25 +16,25 @@ const { mongoose } = require('../configs/dbConnection')
 
 const PurchaseSchema = new mongoose.Schema({
 
-    user_id: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
 
-    firm_id: {
+    firmId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Firm',
         required: true
     },
 
-    brand_id: {
+    brandId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Brand',
         required: true
     },
 
-    product_id: {
+    productId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
         required: true
@@ -50,7 +50,7 @@ const PurchaseSchema = new mongoose.Schema({
         default: 0
     },
 
-    price_total: {
+    amount: {
         type: Number,
         default: function(){ return this.quantity  * this.price }, // create
         transform: function(){ return this.quantity  * this.price }, // update

@@ -23,7 +23,7 @@ module.exports = {
                 </ul>
             `
         */
-        const data=await res.getModelList(Sale)
+        const data=await res.getModelList(Sale,{},['brandId','productId'])
         // res.status(200).send({
         //     error: false,
         //     details:await res.getModelListDetails(Sale),

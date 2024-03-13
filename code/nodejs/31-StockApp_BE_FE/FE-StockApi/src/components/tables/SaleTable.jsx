@@ -1,7 +1,7 @@
 import React from "react";
 import useStockCall from "../../hooks/useStockCall";
 import { useSelector } from "react-redux";
-import { GridActionsCellItem} from "@mui/x-data-grid";
+import { GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { btnStyle } from "../../styles/globalStyle";
@@ -9,8 +9,8 @@ import DataTable from "./DataTable";
 
 const SaleTable = ({ setOpen, setInfo }) => {
   const { deleteStockData } = useStockCall();
-  const { sales } = useSelector(state => state.stock);
-console.log(sales)
+  const { sales } = useSelector((state) => state.stock);
+  console.log(sales);
   const columns = [
     {
       field: "createdAt",
@@ -18,9 +18,9 @@ console.log(sales)
       minWidth: 150,
       headerAlign: "center",
       align: "center",
-      renderCell:({row})=>{
-        return new Date(row.createdAt).toLocaleString("de-DE")
-      }
+      renderCell: ({ row }) => {
+        return new Date(row.createdAt).toLocaleString("de-DE");
+      },
     },
 
     {
@@ -30,9 +30,9 @@ console.log(sales)
       minWidth: 100,
       headerAlign: "center",
       align: "center",
-      renderCell:({row})=>{
-        return row?.brandId?.name
-      }
+      renderCell: ({ row }) => {
+        return row?.brandId?.name;
+      },
     },
     {
       field: "productId",
@@ -41,9 +41,9 @@ console.log(sales)
       minWidth: 100,
       headerAlign: "center",
       align: "center",
-      renderCell:({row})=>{
-        return row?.productId?.name
-      }
+      renderCell: ({ row }) => {
+        return row?.productId?.name;
+      },
     },
     {
       field: "quantity",
@@ -72,7 +72,7 @@ console.log(sales)
       minWidth: 40,
       headerAlign: "center",
       align: "center",
-      renderCell: ({row:{brandId,price,quantity,productId,_id}}) => {
+      renderCell: ({ row: { brandId, price, quantity, productId, _id } }) => {
         return [
           <GridActionsCellItem
             key={"edit"}
@@ -80,7 +80,7 @@ console.log(sales)
             label="Edit"
             onClick={() => {
               setOpen(true);
-              setInfo({brandId,price,quantity,productId,_id});
+              setInfo({ brandId, price, quantity, productId, _id });
             }}
             sx={btnStyle}
           />,

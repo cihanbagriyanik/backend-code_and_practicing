@@ -14,13 +14,13 @@ const { mongoose } = require('../configs/dbConnection')
 
 const ProductSchema = new mongoose.Schema({
 
-    category_id: {
+    categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
         required: true
     },
 
-    brand_id: {
+    brandId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Brand',
         required: true
