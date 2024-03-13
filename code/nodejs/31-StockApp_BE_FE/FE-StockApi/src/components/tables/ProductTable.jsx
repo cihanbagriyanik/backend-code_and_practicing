@@ -32,7 +32,7 @@ export default function ProductTable() {
       headerAlign: "center",
       align: "center",
       flex: 2,
-      valueGetter: (params) => params.row.categoryId.name,
+      valueGetter: (params) => params.row?.categoryId?.name,
     },
     {
       field: "brandId",
@@ -41,7 +41,7 @@ export default function ProductTable() {
       headerAlign: "center",
       align: "center",
       flex: 2,
-      valueGetter: (params) => params.row.brandId.name,
+      valueGetter: (params) => params.row?.brandId?.name,
     },
     {
       field: "name",
