@@ -9,6 +9,19 @@ const jwt=require("jsonwebtoken")
 
 module.exports={
     login: async(req,res)=>{
+               /*
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "Login"
+            #swagger.description = 'Login with username (or email) and password for get Token and JWT.'
+            #swagger.parameters["body"] = {
+                in: "body",
+                required: true,
+                schema: {
+                    "username": "test",
+                    "password": "1234",
+                }
+            }
+        */
 
         const {username, email, password}=req.body
         if((username || email) && password){
@@ -76,7 +89,12 @@ module.exports={
         }
 
     },
-    logout: async(req,res)=>{   
+    logout: async(req,res)=>{  
+         /*
+            #swagger.tags = ["Authentication"]
+            #swagger.summary = "Token: Logout"
+            #swagger.description = 'Delete token-key.'
+        */ 
         const auth=req.headers?.authorization || null // Token tokenKey or Bearer accessToken
         const tokenKey=auth ? auth.split(' ') : null // ['Token','tokenKey'] ['Bearer','accessToken'] 
         
