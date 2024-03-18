@@ -19,33 +19,36 @@
                 <a class="btn btn-sm btn-secondary" href="/view">List Todos</a>
                 <a class="btn btn-sm btn-primary" href="/view/create">New Todo</a>
             </p>
+
+            
+
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th># 1</th>
+                        <th># <%= data.title %></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Title</td>
-                        <td>Test Title</td>
+                        <td><%= data.title %></td>
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td>Test Description</td>
+                        <td><%= data.description %></td>
                     </tr>
                     <tr>
                         <td>Priority</td>
-                        <td>Norm</td>
+                        <td><%= priority[ data.priority] %></td>
                     </tr>
                     <tr>
                         <td>Is Done?</td>
-                        <td>No</td>
+                        <td><%= (data.isDone)? "Yes":"No" %></td>
                     </tr>
                     <tr>
                         <td>Created</td>
-                        <td>05/11/2023</td>
+                        <td><%= data.createdAt.toLocaleDateString('tr') %></td>
                     </tr>
                 </tbody>
             </table>
