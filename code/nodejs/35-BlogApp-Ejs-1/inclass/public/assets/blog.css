@@ -1,12 +1,11 @@
 /* stylelint-disable stylistic/selector-list-comma-newline-after */
-* {
+*{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 .blog-header-logo {
-  font-family: "Playfair Display", Georgia, "Times New Roman",
-    serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
   font-size: 2.25rem;
 }
 
@@ -14,27 +13,17 @@
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Playfair Display", Georgia, "Times New Roman",
-    serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif/*rtl:Amiri, Georgia, "Times New Roman", serif*/;
 }
 
 .flex-auto {
   flex: 0 0 auto;
 }
 
-.h-250 {
-  height: 250px;
-}
+.h-250 { height: 250px; }
 @media (min-width: 768px) {
-  .h-md-250 {
-    height: 250px;
-  }
+  .h-md-250 { height: 250px; }
 }
 
 /* Pagination */
@@ -56,13 +45,12 @@ h6 {
 .line-clamp-3 {
   display: -webkit-box;
   -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical;  
   overflow: hidden;
 }
-
 .line-clamp-4 {
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* 4 satirda kes */
-  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;/* 4.satırda keser sonrasını temsilen ... koyar*/
+  -webkit-box-orient: vertical;  
   overflow: hidden;
 }
