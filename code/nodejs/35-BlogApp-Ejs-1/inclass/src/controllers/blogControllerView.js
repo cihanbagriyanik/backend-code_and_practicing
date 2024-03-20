@@ -17,13 +17,25 @@ module.exports.BlogPost = {
   list: async (req, res) => {
     const data = await res.getModelList(BlogPost, "blogCategoryId");
 
+    // console.log(req.query.filter);
+    const categories = await BlogCategory.find();
+
+    const recentPosts = await BlogPost.find()
+      .sort({ createAt: "desc" })
+      .limit(3);
+
     // res.status(200).send({
     //   error: false,
     //   details: await res.getModelListDetails(BlogPost),
     //   data: data,
     // });
 
-    res.render("index");
+    res.render("index", {
+      posts: data,
+      categories,
+      selectedCategory: req?.query?.filter?.blogCategoryId,
+      recentPosts
+    });
   },
 
   create: async (req, res) => {

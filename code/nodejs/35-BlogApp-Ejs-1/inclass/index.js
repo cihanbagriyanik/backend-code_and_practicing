@@ -41,6 +41,10 @@ app.set("views", "./public"); //* views klasörü yerine public klasörünü kul
 // app.use(express.urlencoded({extended:false}));
 app.use(express.urlencoded({ extended: true }));
 
+// Static Files
+//* /assets uzantısı görürsen bunun için public klasöründeki assetse erişim sağla.
+app.use("/assets", express.static("./public/assets"));
+
 /* -------------------------------------------------------------------------- */
 //!                              Template (ejs) End                           */
 /* -------------------------------------------------------------------------- */
