@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 /*
 
 BLOG api project MODELS
@@ -6,8 +6,7 @@ BLOG api project MODELS
 */
 //https://mongoosejs.com/docs/models.html
 
-
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 // const modelSchema=new mongoose.Schema(
 //     {fields },{model detail}
@@ -39,59 +38,64 @@ const modelSchema=new mongoose.Schema(
 
 // BlogCategory:
 
-const BlogCategorySchema = new mongoose.Schema({
-
+const BlogCategorySchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        trim: true,
-        required: true
-    }
-
-}, {
-    collection: 'blogCategories',
-    timestamps: true
-})
+      type: String,
+      trim: true,
+      required: true,
+    },
+  },
+  {
+    collection: "blogCategories",
+    timestamps: true,
+  }
+);
 
 // BlogPost:
 const BlogPostSchema = new mongoose.Schema(
-    {
-        // _id
-        // blog category oluşunca kullan
-        // blogCategoryId:{
-        // }
+  {
+    // _id
+    // blog category oluşunca kullan
+    // blogCategoryId:{
+    // }
 
-        blogCategoryId: {
-            type: mongoose.Schema.Types.ObjectId, // ForeignKey // Relational ID
-            ref: 'BlogCategory',
-            required: true,
-        },
-
-        title: {
-            type: String,
-            trim: true,
-            required: true
-        },
-        content: {
-            type: String,
-            trim: true,
-            required: true
-        },
-        published: {
-            type: Boolean,
-            default: true
-        },
-        // createdAt
-        //updatedAt  mongo takip ediyor
-
+    blogCategoryId: {
+      type: mongoose.Schema.Types.ObjectId, // ForeignKey // Relational ID
+      ref: "BlogCategory",
+      required: true,
     },
-    {
-        collection: 'blogPosts',
-        timestamps: true // veri kayıt ve güncellemede zaman damgası 
-    }
-)
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User", // ModelName
+      required: true,
+    },
+
+    title: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    content: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    published: {
+      type: Boolean,
+      default: true,
+    },
+    // createdAt
+    //updatedAt  mongo takip ediyor
+  },
+  {
+    collection: "blogPosts",
+    timestamps: true, // veri kayıt ve güncellemede zaman damgası
+  }
+);
 
 // Export:
 module.exports = {
-    BlogCategory: mongoose.model('BlogCategory', BlogCategorySchema),
-    BlogPost: mongoose.model('BlogPost', BlogPostSchema),
-}
+  BlogCategory: mongoose.model("BlogCategory", BlogCategorySchema),
+  BlogPost: mongoose.model("BlogPost", BlogPostSchema),
+};
