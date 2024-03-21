@@ -25,7 +25,9 @@
                 </h2>
 
                 <p class="blog-post-meta"><%= post.createdAt.toLocaleString() %></p>
-                <%- post.content %>
+                <div class="w-100 text-break">
+                    <%- post.content %>
+                </div>
             </article>
         </div>
     </div>
