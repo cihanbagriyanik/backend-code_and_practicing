@@ -1,0 +1,105 @@
+{%- include('partials/header') -%}
+
+<!-- content start -->
+<div class="pb-5">
+  <div class="mx-auto d-flex justify-content-center align-items-center pt-5">
+    <div class="card w-50">
+      <div class="card-body">
+        <h2>{%= (pizza ? 'Update' : 'Create') %}</h2>
+        {% console.log(pizza) %}
+        <hr />
+        <form action="" method="POST" enctype="multipart/form-data">
+          <table class="table">
+            <tbody>
+              <tr>
+                <td>Pizza Name</td>
+                <td>
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    value="{%= pizza?.name %}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Pizza Price</td>
+                <td>
+                  <input
+                    type="number"
+                    name="price"
+                    class="form-control"
+                    value="{%= pizza?.price %}"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Image</td>
+                <td>
+                  {% if (pizza?.image) { %}
+                  <input
+                    type="hidden"
+                    name="image"
+                    value="{%= pizza.image %}"
+                  />
+                  {% } %}
+                  <img
+                    src="{%= pizza?.image.startsWith('http') ? pizza?.image : '/' + pizza?.image %}"
+                    alt="{%= pizza?.name %}"
+                    width="200px"
+                    class="my-3"
+                    id="imagePizza"
+                  />
+                  <div class="mb-3">
+                    <input
+                      class="form-control"
+                      type="file"
+                      name="image"
+                      id="formFile"
+                      onchange="previewImage(this)"
+                    />
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Toppings</td>
+                <td>
+                  {% toppings.forEach(top => { %}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox"
+                    name="toppings[]" value="{%= top.id %}"
+                    id="flexCheckDefault" {%= pizza?.toppings.some(pizzaTop =>
+                    top.id == pizzaTop.id) ? 'checked' : '' %} >
+                    <label class="form-check-label" for="flexCheckDefault">
+                      {%= top.name %}
+                    </label>
+                  </div>
+                  {% }) %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br />
+          <input class="btn btn-primary" type="submit" value="OK" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- content end -->
+
+<script>
+  function previewImage(input) {
+    console.log("");
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        // console.log(e.target.result);
+        document.querySelector("#imagePizza").src = e.target.result
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+
+{%- include('partials/footer') -%}

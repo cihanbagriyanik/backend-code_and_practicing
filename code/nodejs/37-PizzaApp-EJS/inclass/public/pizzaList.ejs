@@ -28,6 +28,9 @@
                             </div>
                             <div class="pt-3">
                                 <a href="/orders/create?pizza={%= pizza.id %}" class=" btn btn-warning">Order</a>
+                                {% if(user?.isAdmin) { %}
+                                <a href="/pizzas/{%= pizza.id %}" class=" btn btn-secondary">Detail</a>
+                                    {% } %}
                             </div>
                         </div>
                     </div>

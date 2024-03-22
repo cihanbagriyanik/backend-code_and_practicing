@@ -14,9 +14,10 @@
 
 const Pizza = require('../../models/pizza')
 const Order = require('../../models/order')
+const User = require('../../models/user')
 
 const pizzaSizes = ['Small', 'Medium', 'Large', 'XLarge']
-
+const sendMail = require('../../helpers/sendMail')
 module.exports = {
 
     list: async (req, res) => {
@@ -66,6 +67,19 @@ module.exports = {
             req.body.totalPrice = req.body.price * req.body.quantity
 
             const data = await Order.create(req.body)
+
+            const user = await User.findOne({_id:req.session.user.id})
+            sendMail(
+                // to:
+                user.email,
+                // subject:
+                'Order',
+                // Message:
+                `
+                    <h1>Nadia's Garden</h1>
+                    <p>Merhaba <b>${user.username}</b>, ${data._id} no'lu siparişiniz alındı!</p>
+                `
+            )
 
             // res.status(201).send({
             //     error: false,
