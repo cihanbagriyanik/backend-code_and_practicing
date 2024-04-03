@@ -18,3 +18,19 @@ const UserDetail = ({ params }) => {
 };
 
 export default UserDetail;
+
+/* -------------------------------------------------------------------------- */
+//* Return a list of `params` to populate the [slug] dynamic segment
+export async function generateStaticParams() {
+  const userArr = [1, 2, 3, 4];
+  return userArr.map((id) => ({ userId: id.toString() }));
+}
+
+/* -------------------------------------------------------------------------- */
+//* dinamik sayfalar için meta-data oluşturma
+export async function generateMetadata({ params: { userId } }) {
+  return {
+    title: `User-${userId}`,
+    description: `This is the page of User-${userId}`,
+  };
+}

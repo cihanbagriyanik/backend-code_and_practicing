@@ -2,6 +2,11 @@ import GoBackButton from "@/components/GoBackButton";
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: "Users Page",
+  description: "This is Users page",
+};
+
 const Users = () => {
   const userArr = [1, 2, 3, 4];
   return (
