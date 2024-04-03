@@ -6,7 +6,7 @@ import React from "react";
 const Team = async () => {
   //? bu sayede serverda data fetch işlemi gerçekleşti ve cliente data fetch edilmiş olarak geldi
   const users = await getUsers();
-  console.log(users);
+  //   console.log(users);
   return (
     <div className="text-center">
       <h1 className="text-2xl">Team</h1>

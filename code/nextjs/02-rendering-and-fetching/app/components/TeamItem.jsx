@@ -1,6 +1,9 @@
+"use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-const TeamItem = ({ email, avatar, first_name, last_name }) => {
+const TeamItem = ({ email, avatar, first_name, last_name, id }) => {
+  const router = useRouter();
   return (
     <li
       key={email}
@@ -23,6 +26,7 @@ const TeamItem = ({ email, avatar, first_name, last_name }) => {
       </div>
       <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
         <button
+          onClick={() => router.push(`/team/${id}`)}
           type="button"
           className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
         >
