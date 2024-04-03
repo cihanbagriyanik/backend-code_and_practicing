@@ -2,7 +2,7 @@ import DetailCard from "@/app/components/DetailCard";
 import { getUserDetail, getUsers } from "@/helpers/apiFunctions";
 import React from "react";
 
-const page = async ({ params: { id } }) => {
+const TeamDetail = async ({ params: { id } }) => {
   const person = await getUserDetail(id);
   console.log(person);
   return (
@@ -13,7 +13,7 @@ const page = async ({ params: { id } }) => {
   );
 };
 
-export default page;
+export default TeamDetail;
 
 export async function generateStaticParams() {
   const users = await getUsers();
