@@ -12,8 +12,12 @@ const authSlice = createSlice({
     loginSuccess: (state, { payload }) => {
       state.currentUser = payload;
     },
-    logoutSuccess: (state) => (state.currentUser = ""),
-    fetchFail: (state) => (state.error = true),
+    logoutSuccess: (state) => {
+      state.currentUser = "";
+    },
+    fetchFail: (state) => {
+      state.error = true;
+    },
   },
 });
 
