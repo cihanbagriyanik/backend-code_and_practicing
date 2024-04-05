@@ -1,13 +1,41 @@
+"use client";
+import useAuthCalls from "@/hooks/useAuthCalls";
 import GoogleIcon from "@/public/icons/GoogleIcon";
-import React from "react";
+import React, { useState } from "react";
 
 const Register = () => {
+  const [info, setInfo] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+  });
+
+  const { createUser } = useAuthCalls();
+
+  const handleChange = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { email, password, first_name, last_name } = info;
+
+    const displayName = `${first_name} ${last_name}`;
+
+    createUser(email, password, displayName);
+  };
+
   return (
     <div className="relative h-screen w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover ">
       <div className="bg-black w-full h-full bg-opacity-50">
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center relative top-28  w-full lg:w-2/5 lg:max-w-md rounded-md">
-            <form>
+            <form onSubmit={handleSubmit}>
               <h2 className="text-red-main text-2xl font-[500] text-center mb-3 tracking-[0.1em] ">
                 Sign Up
               </h2>
@@ -18,6 +46,7 @@ const Register = () => {
                   required
                   placeholder=" "
                   className="peer"
+                  onChange={handleChange}
                 />
                 <label htmlFor="first_name">First Name</label>
               </div>
@@ -28,6 +57,7 @@ const Register = () => {
                   required
                   placeholder=" "
                   className="peer"
+                  onChange={handleChange}
                 />
                 <label htmlFor="last_name">Last Name</label>
               </div>
@@ -38,6 +68,7 @@ const Register = () => {
                   required
                   placeholder=" "
                   className="peer"
+                  onChange={handleChange}
                 />
                 <label htmlFor="email">Email</label>
               </div>
@@ -48,6 +79,7 @@ const Register = () => {
                   required
                   placeholder=" "
                   className="peer"
+                  onChange={handleChange}
                 />
                 <label htmlFor="password">Password</label>
               </div>
