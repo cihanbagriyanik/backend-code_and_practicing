@@ -10,22 +10,22 @@ const Login = () => {
     password: "",
   });
 
-  const { signIn } = useAuthCalls();
+  const { signIn, signUpProvider, forgotPassword } = useAuthCalls();
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
   //   console.log(info);
+  const { email, password } = info;
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = info;
     signIn(email, password);
   };
 
   return (
     <div className="relative h-screen w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover ">
-      <div className="bg-black w-full h-full bg-opacity-50">
+      <div className="bg-black w-full h-full lg:bg-opacity-50">
         <div className="flex justify-center">
           <div className="bg-black bg-opacity-70 px-16 py-16 self-center relative top-28  w-full lg:w-2/5 lg:max-w-md rounded-md">
             <form onSubmit={handleSubmit}>
@@ -55,7 +55,10 @@ const Login = () => {
                 <label htmlFor="password">Password</label>
               </div>
               <div className="flex justify-between">
-                <span className="py-3 font-[0.75em] cursor-pointer text-gray-500 hover:text-red-main ">
+                <span
+                  onClick={() => forgotPassword(email)}
+                  className="py-3 font-[0.75em] cursor-pointer text-gray-500 hover:text-red-main "
+                >
                   Forgot Password
                 </span>
                 <Link
@@ -66,7 +69,11 @@ const Login = () => {
                 </Link>
               </div>
               <button className="btn-danger">Login</button>
-              <button className="btn-danger flex justify-between items-center">
+              <button
+                onClick={() => signUpProvider()}
+                className="btn-danger flex justify-between items-center"
+                type="button"
+              >
                 Continue with Google
                 <GoogleIcon />
               </button>

@@ -11,7 +11,7 @@ const Register = () => {
     password: "",
   });
 
-  const { createUser } = useAuthCalls();
+  const { createUser, signUpProvider } = useAuthCalls();
 
   const handleChange = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -79,7 +79,11 @@ const Register = () => {
                 <label htmlFor="password">Password</label>
               </div>
               <button className="btn-danger">Register</button>
-              <button className="btn-danger flex justify-between items-center">
+              <button
+                onClick={() => signUpProvider()}
+                className="btn-danger flex justify-between items-center"
+                type="button"
+              >
                 Continue with Google
                 <GoogleIcon />
               </button>
